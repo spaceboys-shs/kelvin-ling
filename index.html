@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abunene Ting Lik Yue — A Cinematic Tribute</title>
+    <!-- Google Fonts for Editorial Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css252?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN for utility structure -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        palette: {
+                            bg: 'var(--bg-primary)',
+                            surface: 'var(--bg-secondary)',
+                            text: 'var(--text-main)',
+                            accent: 'var(--accent-primary)',
+                            deep: 'var(--accent-deep)'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Instrument Serif"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #FBFCFF;
+            --bg-secondary: #D0CCD0;
+            --text-main: #605856;
+            --accent-primary: #1C6E8C;
+            --accent-deep: #274156;
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #11151B;
+            --bg-secondary: #1E2530;
+            --text-main: #D0CCD0;
+            --accent-primary: #2D91B8;
+            --accent-deep: #8CB8D4;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1, h2, h3, .serif-heading {
+            font-family: 'Instrument Serif', serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        /* Cinematic image cinematic overlays */
+        .cinematic-img-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        .cinematic-img-wrap img {
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            filter: brightness(0.95) contrast(1.05);
+        }
+        .cinematic-img-wrap:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.02) contrast(1.08);
+        }
+
+        /* Glassmorphism nav */
+        .glass-nav {
+            background: rgba(251, 252, 255, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(208, 204, 208, 0.3);
+            transition: var(--transition-smooth);
+        }
+        [data-theme="dark"] .glass-nav {
+            background: rgba(17, 21, 27, 0.85);
+            border-bottom: 1px solid rgba(30, 37, 48, 0.5);
+        }
+
+        /* Smooth reveal animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Monkey mode overlay style */
+        .monkey-mode-active {
+            animation: jungleShake 0.4s infinite alternate;
+        }
+        @keyframes jungleShake {
+            0% { transform: rotate(-1deg) scale(1.002); }
+            100% { transform: rotate(1deg) scale(1.002); }
+        }
+    </style>
+</head>
+<body class="selection:bg-[#1C6E8C] selection:text-[#FBFCFF]">
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav px-6 py-4 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="text-2xl tracking-widest font-bold font-serif text-[var(--accent-deep)] dark:text-[var(--bg-secondary)] flex items-center gap-2 group">
+                <span class="inline-block w-3 h-3 rounded-full bg-[var(--accent-primary)] group-hover:scale-125 transition-transform"></span>
+                ABUNENE
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                <a href="#about" class="hover:text-[var(--accent-primary)] transition-colors">About</a>
+                <a href="#personality" class="hover:text-[var(--accent-primary)] transition-colors">Personality</a>
+                <a href="#interests" class="hover:text-[var(--accent-primary)] transition-colors">Interests</a>
+                <a href="#achievements" class="hover:text-[var(--accent-primary)] transition-colors">Achievements</a>
+                <a href="#gallery" class="hover:text-[var(--accent-primary)] transition-colors">Gallery</a>
+                <a href="#quote" class="hover:text-[var(--accent-primary)] transition-colors">Legacy</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <!-- Theme toggle button -->
+                <button id="themeToggle" class="p-2 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-deep)] hover:scale-105 transition-transform cursor-pointer" aria-label="Toggle theme" title="Toggle Dark/Light Mode">
+                    <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </button>
+                <!-- Ambient Music Button -->
+                <button id="musicToggle" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--accent-primary)] text-white text-xs font-semibold tracking-wider uppercase hover:opacity-90 transition-all shadow-sm cursor-pointer">
+                    <span id="musicIndicator" class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                    <span id="musicText">Theme Sound</span>
+                </button>
+                <!-- Mobile menu button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-[var(--accent-deep)]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile dropdown menu -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 glass-nav px-6 py-6 border-b border-[var(--bg-secondary)] flex flex-col space-y-4">
+            <a href="#about" class="mobile-nav-link text-lg font-serif">About</a>
+            <a href="#personality" class="mobile-nav-link text-lg font-serif">Personality</a>
+            <a href="#interests" class="mobile-nav-link text-lg font-serif">Interests</a>
+            <a href="#achievements" class="mobile-nav-link text-lg font-serif">Achievements</a>
+            <a href="#gallery" class="mobile-nav-link text-lg font-serif">Gallery</a>
+            <a href="#quote" class="mobile-nav-link text-lg font-serif">Legacy</a>
+        </div>
+    </header>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-8 z-10 reveal-on-scroll">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[var(--bg-secondary)] text-xs font-semibold tracking-widest uppercase">
+                    <span>SMK Sacred Heart</span>
+                    <span class="w-1 h-1 rounded-full bg-[var(--accent-primary)]"></span>
+                    <span>Class 4S1</span>
+                    <span class="w-1 h-1 rounded-full bg-[var(--accent-primary)]"></span>
+                    <span>Age 67</span>
+                </div>
+                
+                <h1 class="text-6xl sm:text-8xl lg:text-9xl font-serif tracking-tight leading-none text-[var(--accent-deep)] dark:text-white">
+                    ABUNENE <br>
+                    <span class="text-[var(--accent-primary)] italic font-light">Ting Lik Yue</span>
+                </h1>
+
+                <p class="text-xl sm:text-2xl font-light text-[var(--text-main)] max-w-2xl leading-relaxed">
+                    "A remarkable individual. A respected friend. An unforgettable legend."
+                </p>
+
+                <div class="flex flex-wrap items-center gap-6 pt-4">
+                    <a href="#about" class="px-8 py-4 rounded-full bg-[var(--accent-deep)] text-white font-medium tracking-wide hover:bg-[var(--accent-primary)] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        Discover the Legend
+                    </a>
+                    <button id="monkeyTriggerBtn" class="px-6 py-4 rounded-full border border-[var(--accent-primary)] text-[var(--accent-primary)] font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all">
+                        🐵 Secret Monkey Mode
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 relative reveal-on-scroll">
+                <div class="cinematic-img-wrap shadow-2xl rounded-3xl aspect-[4/5] bg-[var(--bg-secondary)] border-4 border-white dark:border-[var(--bg-secondary)]">
+                    <img src="photo_2026-08-16_20-37-02.jpg" alt="Abunene Portrait" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x750/274156/FBFCFF?text=Abunene'">
+                </div>
+                <div class="absolute -bottom-6 -left-6 p-6 rounded-2xl glass-nav shadow-xl backdrop-blur-md hidden sm:block border border-white/20">
+                    <p class="text-xs uppercase tracking-widest text-[var(--accent-primary)] font-bold">Status</p>
+                    <p class="text-lg font-serif">Legendary Status Verified</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce opacity-70">
+            <span class="text-xs uppercase tracking-widest font-semibold">Scroll to Discover</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <section id="about" class="py-28 px-6 bg-[var(--bg-secondary)] bg-opacity-30">
+        <div class="max-w-5xl mx-auto space-y-16">
+            <div class="text-center space-y-4 reveal-on-scroll">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Biographical Essence</span>
+                <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">THE MAN BEHIND THE LEGEND</h2>
+                <div class="w-24 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="cinematic-img-wrap rounded-2xl shadow-xl aspect-[4/3] reveal-on-scroll">
+                    <img src="Screenshot 2026-03-08 192146.png" alt="Abunene in glasses" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x450/1C6E8C/FBFCFF?text=Abunene+Coding'">
+                </div>
+                <div class="space-y-6 reveal-on-scroll">
+                    <h3 class="text-3xl font-serif text-[var(--accent-deep)] dark:text-white">A Uniquely Unforgettable Presence</h3>
+                    <p class="text-lg leading-relaxed text-[var(--text-main)] font-light">
+                        Hailing from SMK Sacred Heart's prestigious Class 4S1, Abunene Ting Lik Yue is a towering figure of intellect, immaculate charm, and unmistakable personality. Known far and wide for his exceptional coding mastery and sharp wit, he carries himself with a cheerful and delightfully girlish grace that lights up every room he enters.
+                    </p>
+                    <p class="text-lg leading-relaxed text-[var(--text-main)] font-light">
+                        Whether he's dominating academic charts, sinking basketball hoops, or engaging in legendary inside jokes with Hanson and Jeriel, Abunene proves that true character cannot be scripted. He is simply unforgettable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="personality" class="py-28 px-6">
+        <div class="max-w-6xl mx-auto space-y-16">
+            <div class="text-center space-y-4 reveal-on-scroll">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Psychometric & Social Metrics</span>
+                <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">WHO IS ABUNENE?</h2>
+                <p class="text-sm tracking-wide text-[var(--text-main)] max-w-xl mx-auto">Playful statistical representations reflecting his legendary traits among friends.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="cinematic-img-wrap rounded-3xl shadow-2xl aspect-[4/3] reveal-on-scroll">
+                    <img src="Screenshot 2026-03-08 192010.jpg" alt="Abunene Portrait" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x600/274156/FBFCFF?text=Abunene+Stats'">
+                </div>
+
+                <div class="space-y-6 reveal-on-scroll" id="statsContainer">
+                    <!-- Stat items generated dynamically or via structured markup -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-semibold tracking-wider">
+                            <span>CODING SKILLS</span>
+                            <span class="text-[var(--accent-primary)] font-bold">98%</span>
+                        </div>
+                        <div class="w-full h-3 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
+                            <div class="stat-bar h-full bg-[var(--accent-deep)] rounded-full transition-all duration-1000 ease-out" style="width: 0%" data-width="98%"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-semibold tracking-wider">
+                            <span>FRIENDSHIP & LOYALTY</span>
+                            <span class="text-[var(--accent-primary)] font-bold">97%</span>
+                        </div>
+                        <div class="w-full h-3 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
+                            <div class="stat-bar h-full bg-[var(--accent-deep)] rounded-full transition-all duration-1000 ease-out" style="width: 0%" data-width="97%"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-semibold tracking-wider">
+                            <span>CHEERFULNESS</span>
+                            <span class="text-[var(--accent-primary)] font-bold">96%</span>
+                        </div>
+                        <div class="w-full h-3 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
+                            <div class="stat-bar h-full bg-[var(--accent-deep)] rounded-full transition-all duration-1000 ease-out" style="width: 0%" data-width="96%"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-semibold tracking-wider">
+                            <span>RESPECTFULNESS</span>
+                            <span class="text-[var(--accent-primary)] font-bold">95%</span>
+                        </div>
+                        <div class="w-full h-3 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
+                            <div class="stat-bar h-full bg-[var(--accent-deep)] rounded-full transition-all duration-1000 ease-out" style="width: 0%" data-width="95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-semibold tracking-wider">
+                            <span>HUMOUR & CHARISMA</span>
+                            <span class="text-[var(--accent-primary)] font-bold">95%</span>
+                        </div>
+                        <div class="w-full h-3 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
+                            <div class="stat-bar h-full bg-[var(--accent-deep)] rounded-full transition-all duration-1000 ease-out" style="width: 0%" data-width="95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-semibold tracking-wider">
+                            <span>ENERGY & MONKEY SCREAMS</span>
+                            <span class="text-[var(--accent-primary)] font-bold">94%</span>
+                        </div>
+                        <div class="w-full h-3 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
+                            <div class="stat-bar h-full bg-[var(--accent-deep)] rounded-full transition-all duration-1000 ease-out" style="width: 0%" data-width="94%"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm font-semibold tracking-wider">
+                            <span>GIRLISH CHARM</span>
+                            <span class="text-[var(--accent-primary)] font-bold">92%</span>
+                        </div>
+                        <div class="w-full h-3 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
+                            <div class="stat-bar h-full bg-[var(--accent-deep)] rounded-full transition-all duration-1000 ease-out" style="width: 0%" data-width="92%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="interests" class="py-28 px-6 bg-[var(--bg-secondary)] bg-opacity-30">
+        <div class="max-w-6xl mx-auto space-y-16">
+            <div class="text-center space-y-4 reveal-on-scroll">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Passions & Pursuits</span>
+                <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">HOBBIES & INTERESTS</h2>
+                <div class="w-24 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Coding -->
+                <div class="p-8 rounded-3xl bg-[var(--bg-primary)] shadow-xl border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all reveal-on-scroll space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-[var(--accent-primary)] text-white flex items-center justify-center text-xl font-bold font-serif">01</div>
+                    <h3 class="text-2xl font-serif text-[var(--accent-deep)] dark:text-white">Coding Masterclass</h3>
+                    <p class="text-sm text-[var(--text-main)] font-light leading-relaxed">
+                        Abunene is widely recognized for his stellar coding skills. Whether architecting logical algorithms or debugging at midnight, he approaches code with precision and brilliance.
+                    </p>
+                </div>
+
+                <!-- Basketball -->
+                <div class="p-8 rounded-3xl bg-[var(--bg-primary)] shadow-xl border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all reveal-on-scroll space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-[var(--accent-deep)] text-white flex items-center justify-center text-xl font-bold font-serif">02</div>
+                    <h3 class="text-2xl font-serif text-[var(--accent-deep)] dark:text-white">Basketball Court</h3>
+                    <p class="text-sm text-[var(--text-main)] font-light leading-relaxed">
+                        On the hardwood, Abunene brings competitive fire and unstoppable energy. Basketball remains one of his absolute favorite pastimes and ways to bond with friends.
+                    </p>
+                </div>
+
+                <!-- AV Enthusiast -->
+                <div class="p-8 rounded-3xl bg-[var(--bg-primary)] shadow-xl border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all reveal-on-scroll space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-[var(--text-main)] text-white flex items-center justify-center text-xl font-bold font-serif">03</div>
+                    <h3 class="text-2xl font-serif text-[var(--accent-deep)] dark:text-white">The Mysterious AV Enthusiast</h3>
+                    <p class="text-sm text-[var(--text-main)] font-light leading-relaxed">
+                        A legendary inside joke among companions. Abunene's appreciation for watching AV adds an unforgettable layer of humour and candid personality to his personal legend.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="py-28 px-6">
+        <div class="max-w-5xl mx-auto space-y-16">
+            <div class="text-center space-y-4 reveal-on-scroll">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Accolades & Honours</span>
+                <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">PRESTIGIOUS ACHIEVEMENTS</h2>
+                <div class="w-24 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Achievement 01 -->
+                <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] flex flex-col sm:flex-row gap-8 items-start sm:items-center reveal-on-scroll">
+                    <span class="text-6xl font-serif text-[var(--accent-primary)] font-light">01</span>
+                    <div class="space-y-2">
+                        <span class="text-xs uppercase tracking-widest font-bold text-[var(--accent-deep)] dark:text-white">Academic Excellence</span>
+                        <h3 class="text-3xl font-serif text-[var(--accent-deep)] dark:text-white">Top 1 in His Class</h3>
+                        <p class="text-sm text-[var(--text-main)] font-light leading-relaxed">Consistently outperforming peers through sheer intellect and dedication inside SMK Sacred Heart Class 4S1.</p>
+                    </div>
+                </div>
+
+                <!-- Achievement 02 -->
+                <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] flex flex-col sm:flex-row gap-8 items-start sm:items-center reveal-on-scroll">
+                    <span class="text-6xl font-serif text-[var(--accent-primary)] font-light">02</span>
+                    <div class="space-y-2">
+                        <span class="text-xs uppercase tracking-widest font-bold text-[var(--accent-deep)] dark:text-white">Innovation & Competitions</span>
+                        <h3 class="text-3xl font-serif text-[var(--accent-deep)] dark:text-white">NASA Space Apps & Competition Laurels</h3>
+                        <p class="text-sm text-[var(--text-main)] font-light leading-relaxed">Multiple prestigious awards in coding and innovation challenges, including celebrated NASA Space Apps-related achievements.</p>
+                    </div>
+                </div>
+
+                <!-- Achievement 03 -->
+                <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] flex flex-col sm:flex-row gap-8 items-start sm:items-center reveal-on-scroll">
+                    <span class="text-6xl font-serif text-[var(--accent-primary)] font-light">03</span>
+                    <div class="space-y-2">
+                        <span class="text-xs uppercase tracking-widest font-bold text-[var(--accent-deep)] dark:text-white">Iconic Recognition</span>
+                        <h3 class="text-3xl font-serif text-[var(--accent-deep)] dark:text-white">Top Girl Model in Sibu</h3>
+                        <p class="text-sm text-[var(--text-main)] font-light leading-relaxed">A legendary award that highlights his girlish charm, immaculate poise, and undisputed iconic status across Sibu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="favourites" class="py-28 px-6 bg-[var(--accent-deep)] text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FBFCFF_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto text-center space-y-8 relative z-10 reveal-on-scroll">
+            <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)] bg-white px-4 py-2 rounded-full inline-block">The Special Bond</span>
+            <h2 class="text-5xl sm:text-7xl font-serif leading-tight">Among all things Abunene holds dear, one name stands above the rest.</h2>
+            <div class="pt-8">
+                <span class="text-7xl sm:text-9xl font-serif tracking-wider text-[var(--accent-primary)] inline-block hover:scale-105 transition-transform cursor-pointer" id="jerielEasterEgg">
+                    JERIEL
+                </span>
+            </div>
+            <p class="text-lg font-light text-[var(--bg-secondary)] max-w-xl mx-auto pt-4">
+                From legendary inside jokes in the toilet to unwavering companionship, the bond between Abunene and Jeriel is eternally etched in friendship lore.
+            </p>
+        </div>
+    </section>
+
+    <section id="funfacts" class="py-28 px-6">
+        <div class="max-w-4xl mx-auto text-center space-y-12 reveal-on-scroll">
+            <div class="space-y-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Curated Lore</span>
+                <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">FUN FACTS ABOUT ABUNENE</h2>
+                <div class="w-24 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
+            </div>
+
+            <div class="p-10 sm:p-16 rounded-3xl bg-[var(--bg-secondary)] bg-opacity-25 border border-[var(--bg-secondary)] shadow-xl relative min-h-[200px] flex items-center justify-center">
+                <p id="factDisplay" class="text-2xl sm:text-3xl font-serif text-[var(--accent-deep)] dark:text-white leading-relaxed">
+                    "He is Top 1 in his class, balancing elite academics with legendary coding mastery."
+                </p>
+            </div>
+
+            <div>
+                <button id="nextFactBtn" class="px-8 py-4 rounded-full bg-[var(--accent-primary)] text-white font-medium tracking-wide hover:opacity-90 transition-all shadow-lg hover:shadow-xl cursor-pointer">
+                    REVEAL ANOTHER FACT
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-28 px-6 bg-[var(--bg-secondary)] bg-opacity-30">
+        <div class="max-w-6xl mx-auto space-y-16">
+            <div class="text-center space-y-4 reveal-on-scroll">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Visual Archive</span>
+                <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">EDITORIAL GALLERY</h2>
+                <p class="text-sm tracking-wide text-[var(--text-main)]">Authentic photographs of Abunene Ting Lik Yue. Click any image to launch lightbox.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Large Feature Image -->
+                <div class="md:col-span-8 cinematic-img-wrap rounded-3xl shadow-xl aspect-[16/10] cursor-pointer gallery-item reveal-on-scroll" data-src="photo_2026-08-16_20-37-02.jpg">
+                    <img src="photo_2026-08-16_20-37-02.jpg" alt="Abunene Feature Portrait" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1000x625/274156/FBFCFF?text=Abunene+Gallery+1'">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span class="text-white text-sm font-medium tracking-wide">Portrait 01 — The Legend</span>
+                    </div>
+                </div>
+
+                <!-- Secondary Image 1 -->
+                <div class="md:col-span-4 cinematic-img-wrap rounded-3xl shadow-xl aspect-[4/5] cursor-pointer gallery-item reveal-on-scroll" data-src="Screenshot 2026-03-08 192146.png">
+                    <img src="Screenshot 2026-03-08 192146.png" alt="Abunene Glasses" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/500x625/1C6E8C/FBFCFF?text=Abunene+Gallery+2'">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span class="text-white text-sm font-medium tracking-wide">Portrait 02 — Focus</span>
+                    </div>
+                </div>
+
+                <!-- Secondary Image 2 -->
+                <div class="md:col-span-6 cinematic-img-wrap rounded-3xl shadow-xl aspect-[16/9] cursor-pointer gallery-item reveal-on-scroll" data-src="Screenshot 2026-03-08 192010.jpg">
+                    <img src="Screenshot 2026-03-08 192010.jpg" alt="Abunene Wide" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x450/605856/FBFCFF?text=Abunene+Gallery+3'">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span class="text-white text-sm font-medium tracking-wide">Portrait 03 — Contemplation</span>
+                    </div>
+                </div>
+
+                <!-- Secondary Image 3 -->
+                <div class="md:col-span-6 cinematic-img-wrap rounded-3xl shadow-xl aspect-[16/9] cursor-pointer gallery-item reveal-on-scroll" data-src="Screenshot 2026-01-29 211514.png">
+                    <img src="Screenshot 2026-01-29 211514.png" alt="Abunene Dining" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x450/274156/FBFCFF?text=Abunene+Gallery+4'">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span class="text-white text-sm font-medium tracking-wide">Portrait 04 — Dining & Moments</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quote" class="py-36 px-6 relative overflow-hidden text-center">
+        <div class="absolute inset-0 opacity-5">
+            <img src="photo_2026-08-16_20-37-02.jpg" alt="Background watermark" class="w-full h-full object-cover filter blur-xl">
+        </div>
+        <div class="max-w-4xl mx-auto space-y-8 relative z-10 reveal-on-scroll">
+            <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">The Definitive Statement</span>
+            <blockquote class="text-4xl sm:text-6xl lg:text-7xl font-serif text-[var(--accent-deep)] dark:text-white leading-tight">
+                "As long as I'm still breathing, I'll love Jeriel and Issaac with all I've got."
+            </blockquote>
+            <p class="text-sm font-semibold tracking-widest text-[var(--text-main)] uppercase">— ABUNENE TING LIK YUE</p>
+        </div>
+    </section>
+
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4">
+        <button id="lightboxClose" class="absolute top-6 right-6 text-white text-3xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&times;</button>
+        <button id="lightboxPrev" class="absolute left-6 text-white text-4xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&#10094;</button>
+        <button id="lightboxNext" class="absolute right-6 text-white text-4xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&#10095;</button>
+        <div class="max-w-5xl max-h-[85vh] overflow-hidden rounded-2xl">
+            <img id="lightboxImg" src="" alt="Enlarged view" class="w-full h-auto max-h-[85vh] object-contain">
+        </div>
+    </div>
+
+    <footer class="py-24 px-6 border-t border-[var(--bg-secondary)] bg-[var(--bg-secondary)] bg-opacity-10 text-center">
+        <div class="max-w-4xl mx-auto space-y-8 reveal-on-scroll">
+            <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">THANK YOU, ABUNENE.</h2>
+            <p class="text-xl font-light text-[var(--text-main)] max-w-xl mx-auto">
+                For the memories, the laughter, the coding triumphs, the monkey screams, and everything in between.
+            </p>
+            <div class="pt-6">
+                <p class="text-xs uppercase tracking-widest font-bold text-[var(--accent-primary)]">ABUNENE TING LIK YUE</p>
+                <p class="text-xs text-[var(--text-main)] mt-2">SMK Sacred Heart • Class 4S1 • Age 67</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle Logic
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlElement = document.documentElement;
+            
+            const savedTheme = localStorage.getItem('abunene_theme') || 'light';
+            htmlElement.setAttribute('data-theme', savedTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('abunene_theme', newTheme);
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Scroll Reveal Animation with Intersection Observer
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const statBars = document.querySelectorAll('.stat-bar');
+
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        
+                        // Trigger stat bars if inside personality section
+                        if (entry.target.id === 'statsContainer' || entry.target.closest('#statsContainer')) {
+                            statBars.forEach(bar => {
+                                const targetWidth = bar.getAttribute('data-width');
+                                bar.style.width = targetWidth;
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => observer.observe(el));
+            const statsContainer = document.getElementById('statsContainer');
+            if (statsContainer) observer.observe(statsContainer);
+
+            // Fun Facts Generator
+            const facts = [
+                "He is Top 1 in his class, balancing elite academics with legendary coding mastery.",
+                "Renowned across SMK Sacred Heart for his cheerful and girlish charm.",
+                "Holds legendary status as the Top Girl Model in Sibu.",
+                "Known to play with Hanson and scream like monkeys with unstoppable energy.",
+                "Jeriel holds a deeply cherished and special place in his heart.",
+                "An avid basketball player bringing unmatched competitive fire to the court.",
+                "A mysterious and unforgettable AV enthusiast with a brilliant sense of humour.",
+                "Has participated in major competitions, including NASA Space Apps."
+            ];
+
+            const factDisplay = document.getElementById('factDisplay');
+            const nextFactBtn = document.getElementById('nextFactBtn');
+            let currentFactIndex = 0;
+
+            nextFactBtn.addEventListener('click', () => {
+                currentFactIndex = (currentFactIndex + 1) % facts.length;
+                factDisplay.style.opacity = 0;
+                setTimeout(() => {
+                    factDisplay.textContent = `"${facts[currentFactIndex]}"`;
+                    factDisplay.style.opacity = 1;
+                }, 200);
+            });
+            factDisplay.style.transition = 'opacity 0.3s ease';
+
+            // Lightbox Modal
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            const gallerySources = Array.from(galleryItems).map(item => item.getAttribute('data-src'));
+            let currentImageIndex = 0;
+
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    openLightbox(gallerySources[currentImageIndex]);
+                });
+            });
+
+            function openLightbox(src) {
+                lightboxImg.src = src;
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+            }
+
+            function closeLightbox() {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            lightboxPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex - 1 + gallerySources.length) % gallerySources.length;
+                lightboxImg.src = gallerySources[currentImageIndex];
+            });
+
+            lightboxNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex + 1) % gallerySources.length;
+                lightboxImg.src = gallerySources[currentImageIndex];
+            });
+
+            // Keyboard navigation for lightbox
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.classList.contains('flex')) {
+                    if (e.key === 'Escape') closeLightbox();
+                    if (e.key === 'ArrowLeft') lightboxPrev.click();
+                    if (e.key === 'ArrowRight') lightboxNext.click();
+                }
+            });
+
+            // Web Audio API Ambient Music / Theme Sound Generator
+            const musicToggle = document.getElementById('musicToggle');
+            const musicText = document.getElementById('musicText');
+            const musicIndicator = document.getElementById('musicIndicator');
+            let audioCtx = null;
+            let isPlayingMusic = false;
+            let audioInterval = null;
+
+            musicToggle.addEventListener('click', () => {
+                if (!isPlayingMusic) {
+                    try {
+                        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        isPlayingMusic = true;
+                        musicText.textContent = 'Pause Theme';
+                        musicIndicator.classList.remove('bg-white');
+                        musicIndicator.classList.add('bg-green-400', 'animate-ping');
+
+                        // Play a pleasant ambient chord sequence programmatically
+                        const notes = [261.63, 329.63, 392.00, 523.25]; // C major chord
+                        let noteIdx = 0;
+
+                        audioInterval = setInterval(() => {
+                            if (!audioCtx || audioCtx.state === 'closed') return;
+                            const osc = audioCtx.createOscillator();
+                            const gain = audioCtx.createGain();
+                            
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(notes[noteIdx], audioCtx.currentTime);
+                            
+                            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
+
+                            osc.connect(gain);
+                            gain.connect(audioCtx.destination);
+
+                            osc.start();
+                            osc.stop(audioCtx.currentTime + 2.5);
+
+                            noteIdx = (noteIdx + 1) % notes.length;
+                        }, 2000);
+
+                    } catch (err) {
+                        console.error('AudioContext error:', err);
+                    }
+                } else {
+                    if (audioInterval) clearInterval(audioInterval);
+                    if (audioCtx) audioCtx.close();
+                    isPlayingMusic = false;
+                    musicText.textContent = 'Theme Sound';
+                    musicIndicator.classList.add('bg-white');
+                    musicIndicator.classList.remove('bg-green-400', 'animate-ping');
+                }
+            });
+
+            // Easter Eggs
+            // 1. Monkey Mode Trigger
+            const monkeyTriggerBtn = document.getElementById('monkeyTriggerBtn');
+            let monkeyClickCount = 0;
+
+            monkeyTriggerBtn.addEventListener('click', () => {
+                monkeyClickCount++;
+                if (monkeyClickCount >= 3) {
+                    document.body.classList.toggle('monkey-mode-active');
+                    monkeyTriggerBtn.textContent = document.body.classList.contains('monkey-mode-active') ? '🐒 MONKEY MODE ON!' : '🐵 Secret Monkey Mode';
+                    monkeyClickCount = 0;
+                } else {
+                    monkeyTriggerBtn.textContent = `Click ${3 - monkeyClickCount} more times...`;
+                    setTimeout(() => {
+                        if (!document.body.classList.contains('monkey-mode-active')) {
+                            monkeyTriggerBtn.textContent = '🐵 Secret Monkey Mode';
+                        }
+                    }, 2000);
+                }
+            });
+
+            // 2. Jeriel Easter Egg click
+            const jerielEasterEgg = document.getElementById('jerielEasterEgg');
+            if (jerielEasterEgg) {
+                jerielEasterEgg.addEventListener('click', () => {
+                    alert('❤️ Secret Unlocked: Abunene & Jeriel forever in friendship lore!');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
