@@ -24,8 +24,8 @@
 
     <div id="game-container" class="w-full max-w-2xl bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl border border-pink-500/30 glow-box relative overflow-hidden">
         
-        <!-- Header / Stats Bar -->
-        <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/20">
+        <!-- Header / Stats & Auth Status Bar -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 pb-4 border-b border-white/20 gap-4">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center text-xl font-bold shadow-lg">👑</div>
                 <div>
@@ -33,31 +33,68 @@
                     <p class="text-xs text-pink-200 opacity-80">A Wholesome Romantic Adventure</p>
                 </div>
             </div>
-            <div id="stats-display" class="flex items-center space-x-2 bg-black/30 px-4 py-2 rounded-full border border-pink-500/20">
-                <span class="text-pink-400 text-lg">❤️</span>
-                <span id="affection-score" class="font-bold text-sm">Affection: 50%</span>
+            
+            <div class="flex items-center space-x-3">
+                <div id="stats-display" class="hidden items-center space-x-2 bg-black/30 px-3 py-1.5 rounded-full border border-pink-500/20">
+                    <span class="text-pink-400 text-sm">❤️</span>
+                    <span id="affection-score" class="font-bold text-xs">Affection: 50%</span>
+                </div>
+                <div id="user-status-badge" class="hidden text-xs bg-black/40 px-3 py-1.5 rounded-full border border-white/10 text-pink-200 truncate max-w-[180px]">
+                    <!-- Signed-in user email -->
+                </div>
+                <button id="sign-out-btn" onclick="handleSignOut()" class="hidden px-3 py-1.5 bg-red-500/20 hover:bg-red-500/40 text-red-200 text-xs font-semibold rounded-lg border border-red-500/30 transition cursor-pointer">
+                    Sign Out
+                </button>
             </div>
         </div>
 
         <div id="screen-area" class="space-y-6">
-            <!-- Title Screen / Main Menu -->
-            <div id="title-screen" class="text-center py-8 space-y-6">
-                <div class="text-6xl md:text-7xl animate-float">🏳️‍🌈✨</div>
-                <h2 class="text-3xl md:text-4xl font-black text-pink-300">Welcome, Abunene!</h2>
-                <p class="text-sm md:text-base text-gray-200 max-w-md mx-auto leading-relaxed">
-                    Abunene is ready for the ultimate romantic date night in the city of neon lights and starlit cafes. Choose your suitor, make the right choices, and find true love!
-                </p>
-                <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="startGame()" class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg transform transition hover:scale-105 active:scale-95 cursor-pointer">
-                        Start Date Night 💖
-                    </button>
-                </div>
-            </div>
+            <!-- Dynamic Content Area (Auth Screen or Game Screen) -->
         </div>
 
     </div>
 
-    <script>
+    <!-- Firebase SDKs via CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            createUserWithEmailAndPassword, 
+            signOut, 
+            GoogleAuthProvider, 
+            signInWithPopup, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // NOTE: firebaseConfig must be filled in before authentication will work.
+        // These config values are safe to expose publicly (they are not secret keys)
+        // but should match a real Firebase project with proper security rules set up.
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4reFYHN_atqTlmpgpfZvqOY2FNBBSywM",
+            authDomain: "abunene-cef9e.firebaseapp.com",
+            projectId: "abunene-cef9e",
+            storageBucket: "abunene-cef9e.firebasestorage.app",
+            messagingSenderId: "109414537840",
+            appId: "1:109414537840:web:e2e4d98a170f1ec2faf2b5",
+            measurementId: "G-Z9KZXD7V4K"
+        };
+
+        // Initialize Firebase safely
+        let app = null;
+        let auth = null;
+        let isFirebaseInitialized = false;
+
+        try {
+            if (firebaseConfig.apiKey && firebaseConfig.apiKey.trim() !== "") {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                isFirebaseInitialized = true;
+            }
+        } catch (e) {
+            console.warn("Firebase initialization skipped or failed due to unconfigured keys:", e);
+        }
+
         // Game State Variables
         let gameState = {
             currentScene: 'start',
@@ -90,9 +127,8 @@
                     { text: "Walk over to Leo at the moonlight art gallery opening 🎨", next: 'leoDate1', suitor: 'leo', aff: +10 }
                 ]
             },
-            // Julian's route
             julianDate1: {
-                title: "Coffee & Sparking Conversation",
+                title: "Coffee & Sparkling Conversation",
                 text: "Julian greets Abunene with a warm, dazzling smile, handing him a customized iced vanilla latte with heart foam art. 'I was hoping you'd stop by, Abunene,' Julian says softly.",
                 choices: [
                     { text: "'Your coffee is as sweet as your smile, Julian.' (Flirt boldly)", next: 'julianDate2', aff: +15 },
@@ -107,7 +143,6 @@
                     { text: "Hold his hand tightly to keep him warm.", next: 'endingSuccess', aff: +20 }
                 ]
             },
-            // Leo's route
             leoDate1: {
                 title: "Art & Whispered Secrets",
                 text: "Leo stands before a magnificent abstract canvas bursting with vibrant pinks and indigos. He turns, his eyes lighting up as Abunene approaches. 'Abunene! You appreciate color. Tell me what this painting says to you.'",
@@ -133,24 +168,175 @@
             }
         };
 
-        function updateAffectionDisplay() {
-            document.getElementById('affection-score').innerText = `Affection: ${gameState.affection}%`;
+        // Plain-language error mapper
+        function getFriendlyErrorMessage(errorCode) {
+            switch (errorCode) {
+                case 'auth/invalid-email':
+                    return 'Please enter a valid email address.';
+                case 'auth/user-disabled':
+                    return 'This account has been disabled.';
+                case 'auth/user-not-found':
+                    return 'No account found with this email. Please sign up first.';
+                case 'auth/wrong-password':
+                    return 'Incorrect password. Please try again.';
+                case 'auth/email-already-in-use':
+                    return 'An account already exists with this email address.';
+                case 'auth/weak-password':
+                    return 'Password should be at least 6 characters long.';
+                case 'auth/popup-closed-by-user':
+                    return 'Google sign-in popup was closed before completing.';
+                case 'auth/operation-not-allowed':
+                    return 'This sign-in method is not enabled in your Firebase console.';
+                case 'auth/invalid-credential':
+                    return 'Invalid email or password combination.';
+                default:
+                    return errorCode ? `Authentication error: ${errorCode}` : 'An unexpected error occurred.';
+            }
         }
 
-        function startGame() {
+        // Render Authentication UI (Sign In / Sign Up forms & Google button)
+        function renderAuthScreen(activeTab = 'signin', errorMessage = '') {
+            const screenArea = document.getElementById('screen-area');
+            document.getElementById('stats-display').classList.add('hidden');
+            document.getElementById('user-status-badge').classList.add('hidden');
+            document.getElementById('sign-out-btn').classList.add('hidden');
+
+            const configWarning = !isFirebaseInitialized ? `
+                <div class="bg-amber-500/20 border border-amber-500/40 text-amber-200 p-3 rounded-xl text-xs mb-4 leading-relaxed">
+                    ⚠️ <strong>Firebase Not Configured:</strong> Please fill in your <code>firebaseConfig</code> keys in the script section to enable live authentication.
+                </div>
+            ` : '';
+
+            screenArea.innerHTML = `
+                <div class="space-y-5 animate-fadeIn max-w-md mx-auto py-2">
+                    <div class="text-center space-y-2">
+                        <div class="text-5xl animate-float">🏳️‍🌈✨</div>
+                        <h2 class="text-2xl md:text-3xl font-black text-pink-300">Welcome to Abunene's Date</h2>
+                        <p class="text-xs md:text-sm text-gray-200">Sign in or create an account to start your romantic adventure.</p>
+                    </div>
+
+                    ${configWarning}
+
+                    <div id="auth-error-box" class="${errorMessage ? '' : 'hidden'} bg-red-500/20 border border-red-500/40 text-red-200 p-3 rounded-xl text-xs">
+                        ${errorMessage}
+                    </div>
+
+                    <!-- Tab Switcher -->
+                    <div class="flex bg-black/30 p-1 rounded-xl border border-white/10">
+                        <button onclick="switchAuthTab('signin')" class="flex-1 py-2 text-xs font-bold rounded-lg transition ${activeTab === 'signin' ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow' : 'text-gray-300 hover:text-white'}">
+                            Sign In
+                        </button>
+                        <button onclick="switchAuthTab('signup')" class="flex-1 py-2 text-xs font-bold rounded-lg transition ${activeTab === 'signup' ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow' : 'text-gray-300 hover:text-white'}">
+                            Sign Up
+                        </button>
+                    </div>
+
+                    <!-- Form -->
+                    <form onsubmit="handleAuthSubmit(event, '${activeTab}')" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-pink-200 mb-1">Email Address</label>
+                            <input type="email" id="auth-email" required placeholder="abunene@example.com" class="w-full px-4 py-2.5 bg-black/40 border border-white/20 rounded-xl text-sm focus:outline-none focus:border-pink-400 text-white placeholder-gray-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-pink-200 mb-1">Password</label>
+                            <input type="password" id="auth-password" required placeholder="••••••••" class="w-full px-4 py-2.5 bg-black/40 border border-white/20 rounded-xl text-sm focus:outline-none focus:border-pink-400 text-white placeholder-gray-400">
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg transition transform active:scale-95 text-sm cursor-pointer">
+                            ${activeTab === 'signin' ? 'Sign In 💖' : 'Create Account 💖'}
+                        </button>
+                    </form>
+
+                    <div class="relative flex py-2 items-center">
+                        <div class="flex-grow border-t border-white/20"></div>
+                        <span class="flex-shrink mx-4 text-xs text-gray-300 uppercase tracking-wider">Or</span>
+                        <div class="flex-grow border-t border-white/20"></div>
+                    </div>
+
+                    <!-- Google Sign In -->
+                    <button onclick="handleGoogleSignIn()" class="w-full py-3 bg-white hover:bg-gray-100 text-gray-900 font-bold rounded-xl shadow-lg transition flex items-center justify-center space-x-2 text-sm cursor-pointer">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.19v3.15C3.18 21.32 7.23 24 12 24z"/>
+                            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.19C.43 8.12 0 9.87 0 11.73s.43 3.61 1.19 5.15l4.09-2.61z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.18 2.68 1.19 6.58l4.09 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                        </svg>
+                        <span>Sign in with Google</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Global functions exposed for event listeners
+        window.switchAuthTab = function(tab) {
+            renderAuthScreen(tab);
+        };
+
+        window.handleAuthSubmit = async function(event, type) {
+            event.preventDefault();
+            if (!isFirebaseInitialized || !auth) {
+                renderAuthScreen(type, "Please configure your firebaseConfig credentials in the code first.");
+                return;
+            }
+
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+
+            try {
+                if (type === 'signup') {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                } else {
+                    await signInWithEmailAndPassword(auth, email, password);
+                }
+            } catch (error) {
+                renderAuthScreen(type, getFriendlyErrorMessage(error.code));
+            }
+        };
+
+        window.handleGoogleSignIn = async function() {
+            if (!isFirebaseInitialized || !auth) {
+                renderAuthScreen('signin', "Please configure your firebaseConfig credentials in the code first.");
+                return;
+            }
+
+            try {
+                const provider = new GoogleAuthProvider();
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                renderAuthScreen('signin', getFriendlyErrorMessage(error.code));
+            }
+        };
+
+        window.handleSignOut = async function() {
+            if (auth) {
+                try {
+                    await signOut(auth);
+                } catch (e) {
+                    console.error("Sign out error:", e);
+                }
+            }
+        };
+
+        function updateAffectionDisplay() {
+            const scoreEl = document.getElementById('affection-score');
+            if (scoreEl) {
+                scoreEl.innerText = `Affection: ${gameState.affection}%`;
+            }
+        }
+
+        window.startGame = function() {
             gameState.affection = 50;
             gameState.suitor = null;
             navigateTo('selectSuitor');
-        }
+        };
 
-        function navigateTo(sceneKey) {
+        window.navigateTo = function(sceneKey) {
             gameState.currentScene = sceneKey;
             const scene = scenes[sceneKey];
             const screenArea = document.getElementById('screen-area');
 
             if (sceneKey === 'start') {
                 screenArea.innerHTML = `
-                    <div id="title-screen" class="text-center py-8 space-y-6">
+                    <div id="title-screen" class="text-center py-6 space-y-6">
                         <div class="text-6xl md:text-7xl animate-float">🏳️‍🌈✨</div>
                         <h2 class="text-3xl md:text-4xl font-black text-pink-300">Welcome, Abunene!</h2>
                         <p class="text-sm md:text-base text-gray-200 max-w-md mx-auto leading-relaxed">
@@ -205,20 +391,48 @@
                 </div>
             `;
             updateAffectionDisplay();
-        }
+        };
 
-        function makeChoice(nextScene, affChange, chosenSuitor) {
+        window.makeChoice = function(nextScene, affChange, chosenSuitor) {
             if (chosenSuitor) {
                 gameState.suitor = chosenSuitor;
             }
             gameState.affection = Math.min(100, Math.max(0, gameState.affection + affChange));
             navigateTo(nextScene);
-        }
-
-        // Initialize display on load
-        window.onload = function() {
-            updateAffectionDisplay();
         };
+
+        // Authentication state observer setup
+        if (isFirebaseInitialized && auth) {
+            onAuthStateChanged(auth, (user) => {
+                const statsDisplay = document.getElementById('stats-display');
+                const userBadge = document.getElementById('user-status-badge');
+                const signOutBtn = document.getElementById('sign-out-btn');
+
+                if (user) {
+                    // User is signed in -> show game & user badge
+                    statsDisplay.classList.remove('hidden');
+                    statsDisplay.classList.add('flex');
+                    userBadge.innerText = user.email || user.uid;
+                    userBadge.classList.remove('hidden');
+                    signOutBtn.classList.remove('hidden');
+
+                    if (gameState.currentScene === 'start' && document.getElementById('title-screen') === null) {
+                        navigateTo('start');
+                    } else if (gameState.currentScene === 'start') {
+                        navigateTo('start');
+                    }
+                } else {
+                    // User is signed out -> show auth screen
+                    statsDisplay.classList.add('hidden');
+                    userBadge.classList.add('hidden');
+                    signOutBtn.classList.add('hidden');
+                    renderAuthScreen('signin');
+                }
+            });
+        } else {
+            // If Firebase keys are not configured yet, let user test/view auth screen with warning
+            renderAuthScreen('signin');
+        }
     </script>
 </body>
 </html>
