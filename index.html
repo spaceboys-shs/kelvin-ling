@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abunene's Heartfelt Date</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(236, 72, 153, 0.8); }
+        }
+        .glow-box { animation: pulse-glow 2.5s infinite; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-900 via-purple-900 to-indigo-950 text-white min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div id="game-container" class="w-full max-w-2xl bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl border border-pink-500/30 glow-box relative overflow-hidden">
+        
+        <!-- Header / Stats Bar -->
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/20">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center text-xl font-bold shadow-lg">👑</div>
+                <div>
+                    <h1 class="font-extrabold text-lg md:text-xl tracking-wide bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">Abunene's Quest for Love</h1>
+                    <p class="text-xs text-pink-200 opacity-80">A Wholesome Romantic Adventure</p>
+                </div>
+            </div>
+            <div id="stats-display" class="flex items-center space-x-2 bg-black/30 px-4 py-2 rounded-full border border-pink-500/20">
+                <span class="text-pink-400 text-lg">❤️</span>
+                <span id="affection-score" class="font-bold text-sm">Affection: 50%</span>
+            </div>
+        </div>
+
+        <div id="screen-area" class="space-y-6">
+            <!-- Title Screen / Main Menu -->
+            <div id="title-screen" class="text-center py-8 space-y-6">
+                <div class="text-6xl md:text-7xl animate-float">🏳️‍🌈✨</div>
+                <h2 class="text-3xl md:text-4xl font-black text-pink-300">Welcome, Abunene!</h2>
+                <p class="text-sm md:text-base text-gray-200 max-w-md mx-auto leading-relaxed">
+                    Abunene is ready for the ultimate romantic date night in the city of neon lights and starlit cafes. Choose your suitor, make the right choices, and find true love!
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="startGame()" class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg transform transition hover:scale-105 active:scale-95 cursor-pointer">
+                        Start Date Night 💖
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Game State Variables
+        let gameState = {
+            currentScene: 'start',
+            affection: 50,
+            suitor: null, // 'julian' or 'leo'
+            step: 0
+        };
+
+        const suitors = {
+            julian: {
+                name: "Julian",
+                title: "The Charming Cafe Owner ☕",
+                avatar: "🧑🏽‍🦱",
+                color: "from-amber-500 to-orange-600"
+            },
+            leo: {
+                name: "Leo",
+                title: "The Romantic Art Curator 🎨",
+                avatar: "🧑🏻‍🎨",
+                color: "from-blue-500 to-purple-600"
+            }
+        };
+
+        const scenes = {
+            selectSuitor: {
+                title: "Choose Your Date",
+                text: "Abunene steps out into the vibrant downtown district. Two charming gentlemen catch his eye across the plaza. Who will Abunene approach tonight?",
+                choices: [
+                    { text: "Approach Julian outside the cozy artisanal coffee shop ☕", next: 'julianDate1', suitor: 'julian', aff: +10 },
+                    { text: "Walk over to Leo at the moonlight art gallery opening 🎨", next: 'leoDate1', suitor: 'leo', aff: +10 }
+                ]
+            },
+            // Julian's route
+            julianDate1: {
+                title: "Coffee & Sparking Conversation",
+                text: "Julian greets Abunene with a warm, dazzling smile, handing him a customized iced vanilla latte with heart foam art. 'I was hoping you'd stop by, Abunene,' Julian says softly.",
+                choices: [
+                    { text: "'Your coffee is as sweet as your smile, Julian.' (Flirt boldly)", next: 'julianDate2', aff: +15 },
+                    { text: "'It's lovely here! What's your favorite brew?' (Play it cool)", next: 'julianDate2', aff: +5 }
+                ]
+            },
+            julianDate2: {
+                title: "Stroll by the River",
+                text: "After finishing their drinks, Julian and Abunene take a romantic walk along the illuminated river boardwalk. A cool evening breeze blows, and Julian shivers slightly.",
+                choices: [
+                    { text: "Wrap your cozy jacket around Julian's shoulders.", next: 'endingSuccess', aff: +25 },
+                    { text: "Hold his hand tightly to keep him warm.", next: 'endingSuccess', aff: +20 }
+                ]
+            },
+            // Leo's route
+            leoDate1: {
+                title: "Art & Whispered Secrets",
+                text: "Leo stands before a magnificent abstract canvas bursting with vibrant pinks and indigos. He turns, his eyes lighting up as Abunene approaches. 'Abunene! You appreciate color. Tell me what this painting says to you.'",
+                choices: [
+                    { text: "'It looks like our futures colliding in the best possible way.' (Poetic flirt)", next: 'leoDate2', aff: +15 },
+                    { text: "'It's bold, passionate, and unforgettable—just like you.' (Charming compliment)", next: 'leoDate2', aff: +20 }
+                ]
+            },
+            leoDate2: {
+                title: "Starlight Rooftop",
+                text: "Leo leads Abunene up to a private rooftop terrace overlooking the city skyline under a canopy of stars. Leo pours two glasses of sparkling cider.",
+                choices: [
+                    { text: "Toast to unforgettable nights and look deeply into his eyes.", next: 'endingSuccess', aff: +25 },
+                    { text: "Ask Leo to sketch a portrait of Abunene right now.", next: 'endingSuccess', aff: +15 }
+                ]
+            },
+            endingSuccess: {
+                title: "A Perfect Romance! 💖🌈",
+                text: "The chemistry is undeniable! Under the glowing city lights, Abunene and his date share a magical, tender kiss. It's the beginning of a beautiful love story.",
+                choices: [
+                    { text: "Play Again ✨", next: 'start', aff: 50 }
+                ]
+            }
+        };
+
+        function updateAffectionDisplay() {
+            document.getElementById('affection-score').innerText = `Affection: ${gameState.affection}%`;
+        }
+
+        function startGame() {
+            gameState.affection = 50;
+            gameState.suitor = null;
+            navigateTo('selectSuitor');
+        }
+
+        function navigateTo(sceneKey) {
+            gameState.currentScene = sceneKey;
+            const scene = scenes[sceneKey];
+            const screenArea = document.getElementById('screen-area');
+
+            if (sceneKey === 'start') {
+                screenArea.innerHTML = `
+                    <div id="title-screen" class="text-center py-8 space-y-6">
+                        <div class="text-6xl md:text-7xl animate-float">🏳️‍🌈✨</div>
+                        <h2 class="text-3xl md:text-4xl font-black text-pink-300">Welcome, Abunene!</h2>
+                        <p class="text-sm md:text-base text-gray-200 max-w-md mx-auto leading-relaxed">
+                            Abunene is ready for the ultimate romantic date night in the city of neon lights and starlit cafes. Choose your suitor, make the right choices, and find true love!
+                        </p>
+                        <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+                            <button onclick="startGame()" class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg transform transition hover:scale-105 active:scale-95 cursor-pointer">
+                                Start Date Night 💖
+                            </button>
+                        </div>
+                    </div>
+                `;
+                updateAffectionDisplay();
+                return;
+            }
+
+            // Render scene
+            let suitorHeader = '';
+            if (gameState.suitor && suitors[gameState.suitor]) {
+                const s = suitors[gameState.suitor];
+                suitorHeader = `
+                    <div class="flex items-center space-x-3 bg-white/5 p-3 rounded-2xl border border-white/10 mb-4">
+                        <span class="text-3xl">${s.avatar}</span>
+                        <div>
+                            <span class="text-xs text-pink-300 font-semibold uppercase tracking-wider">Current Date</span>
+                            <h3 class="font-bold text-base text-white">${s.name} (${s.title})</h3>
+                        </div>
+                    </div>
+                `;
+            }
+
+            let choicesHtml = '';
+            scene.choices.forEach(choice => {
+                choicesHtml += `
+                    <button onclick="makeChoice('${choice.next}', ${choice.aff || 0}, '${choice.suitor || ''}')" class="w-full text-left p-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 transition duration-200 font-medium text-sm md:text-base flex items-center justify-between group cursor-pointer">
+                        <span>${choice.text}</span>
+                        <span class="text-pink-400 group-hover:translate-x-1 transition">➔</span>
+                    </button>
+                `;
+            });
+
+            screenArea.innerHTML = `
+                <div class="space-y-4 animate-fadeIn">
+                    ${suitorHeader}
+                    <h2 class="text-2xl font-bold text-pink-300">${scene.title}</h2>
+                    <p class="text-gray-200 text-base md:text-lg leading-relaxed bg-black/20 p-4 rounded-2xl border border-white/10">
+                        ${scene.text}
+                    </p>
+                    <div class="space-y-3 pt-2">
+                        ${choicesHtml}
+                    </div>
+                </div>
+            `;
+            updateAffectionDisplay();
+        }
+
+        function makeChoice(nextScene, affChange, chosenSuitor) {
+            if (chosenSuitor) {
+                gameState.suitor = chosenSuitor;
+            }
+            gameState.affection = Math.min(100, Math.max(0, gameState.affection + affChange));
+            navigateTo(nextScene);
+        }
+
+        // Initialize display on load
+        window.onload = function() {
+            updateAffectionDisplay();
+        };
+    </script>
+</body>
+</html>
