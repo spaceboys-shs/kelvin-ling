@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <!-- Google Fonts for Editorial Aesthetics -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css252?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS CDN for utility structure -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -74,7 +74,7 @@
             border-radius: 4px;
         }
 
-        /* Cinematic image cinematic overlays */
+        /* Cinematic image overlays */
         .cinematic-img-wrap {
             position: relative;
             overflow: hidden;
@@ -132,16 +132,17 @@
                 ABUNENE
             </a>
             
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium tracking-wide">
                 <a href="#about" class="hover:text-[var(--accent-primary)] transition-colors">About</a>
                 <a href="#personality" class="hover:text-[var(--accent-primary)] transition-colors">Personality</a>
                 <a href="#interests" class="hover:text-[var(--accent-primary)] transition-colors">Interests</a>
                 <a href="#achievements" class="hover:text-[var(--accent-primary)] transition-colors">Achievements</a>
+                <a href="#auth-portal" class="hover:text-[var(--accent-primary)] transition-colors font-semibold text-[var(--accent-primary)]">Portal</a>
                 <a href="#gallery" class="hover:text-[var(--accent-primary)] transition-colors">Gallery</a>
                 <a href="#quote" class="hover:text-[var(--accent-primary)] transition-colors">Legacy</a>
             </nav>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
                 <!-- Theme toggle button -->
                 <button id="themeToggle" class="p-2 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-deep)] hover:scale-105 transition-transform cursor-pointer" aria-label="Toggle theme" title="Toggle Dark/Light Mode">
                     <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +150,7 @@
                     </svg>
                 </button>
                 <!-- Ambient Music Button -->
-                <button id="musicToggle" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--accent-primary)] text-white text-xs font-semibold tracking-wider uppercase hover:opacity-90 transition-all shadow-sm cursor-pointer">
+                <button id="musicToggle" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--accent-primary)] text-white text-xs font-semibold tracking-wider uppercase hover:opacity-90 transition-all shadow-sm cursor-pointer">
                     <span id="musicIndicator" class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
                     <span id="musicText">Theme Sound</span>
                 </button>
@@ -168,6 +169,7 @@
             <a href="#personality" class="mobile-nav-link text-lg font-serif">Personality</a>
             <a href="#interests" class="mobile-nav-link text-lg font-serif">Interests</a>
             <a href="#achievements" class="mobile-nav-link text-lg font-serif">Achievements</a>
+            <a href="#auth-portal" class="mobile-nav-link text-lg font-serif text-[var(--accent-primary)]">Auth Portal</a>
             <a href="#gallery" class="mobile-nav-link text-lg font-serif">Gallery</a>
             <a href="#quote" class="mobile-nav-link text-lg font-serif">Legacy</a>
         </div>
@@ -197,7 +199,7 @@
                     <a href="#about" class="px-8 py-4 rounded-full bg-[var(--accent-deep)] text-white font-medium tracking-wide hover:bg-[var(--accent-primary)] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                         Discover the Legend
                     </a>
-                    <button id="monkeyTriggerBtn" class="px-6 py-4 rounded-full border border-[var(--accent-primary)] text-[var(--accent-primary)] font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all">
+                    <button id="monkeyTriggerBtn" class="px-6 py-4 rounded-full border border-[var(--accent-primary)] text-[var(--accent-primary)] font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all cursor-pointer">
                         🐵 Secret Monkey Mode
                     </button>
                 </div>
@@ -259,7 +261,6 @@
                 </div>
 
                 <div class="space-y-6 reveal-on-scroll" id="statsContainer">
-                    <!-- Stat items generated dynamically or via structured markup -->
                     <div class="space-y-2">
                         <div class="flex justify-between text-sm font-semibold tracking-wider">
                             <span>CODING SKILLS</span>
@@ -343,7 +344,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Coding -->
                 <div class="p-8 rounded-3xl bg-[var(--bg-primary)] shadow-xl border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all reveal-on-scroll space-y-4">
                     <div class="w-12 h-12 rounded-2xl bg-[var(--accent-primary)] text-white flex items-center justify-center text-xl font-bold font-serif">01</div>
                     <h3 class="text-2xl font-serif text-[var(--accent-deep)] dark:text-white">Coding Masterclass</h3>
@@ -352,7 +352,6 @@
                     </p>
                 </div>
 
-                <!-- Basketball -->
                 <div class="p-8 rounded-3xl bg-[var(--bg-primary)] shadow-xl border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all reveal-on-scroll space-y-4">
                     <div class="w-12 h-12 rounded-2xl bg-[var(--accent-deep)] text-white flex items-center justify-center text-xl font-bold font-serif">02</div>
                     <h3 class="text-2xl font-serif text-[var(--accent-deep)] dark:text-white">Basketball Court</h3>
@@ -361,7 +360,6 @@
                     </p>
                 </div>
 
-                <!-- AV Enthusiast -->
                 <div class="p-8 rounded-3xl bg-[var(--bg-primary)] shadow-xl border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all reveal-on-scroll space-y-4">
                     <div class="w-12 h-12 rounded-2xl bg-[var(--text-main)] text-white flex items-center justify-center text-xl font-bold font-serif">03</div>
                     <h3 class="text-2xl font-serif text-[var(--accent-deep)] dark:text-white">The Mysterious AV Enthusiast</h3>
@@ -382,7 +380,6 @@
             </div>
 
             <div class="space-y-12">
-                <!-- Achievement 01 -->
                 <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] flex flex-col sm:flex-row gap-8 items-start sm:items-center reveal-on-scroll">
                     <span class="text-6xl font-serif text-[var(--accent-primary)] font-light">01</span>
                     <div class="space-y-2">
@@ -392,7 +389,6 @@
                     </div>
                 </div>
 
-                <!-- Achievement 02 -->
                 <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] flex flex-col sm:flex-row gap-8 items-start sm:items-center reveal-on-scroll">
                     <span class="text-6xl font-serif text-[var(--accent-primary)] font-light">02</span>
                     <div class="space-y-2">
@@ -402,7 +398,6 @@
                     </div>
                 </div>
 
-                <!-- Achievement 03 -->
                 <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] flex flex-col sm:flex-row gap-8 items-start sm:items-center reveal-on-scroll">
                     <span class="text-6xl font-serif text-[var(--accent-primary)] font-light">03</span>
                     <div class="space-y-2">
@@ -411,6 +406,101 @@
                         <p class="text-sm text-[var(--text-main)] font-light leading-relaxed">A legendary award that highlights his girlish charm, immaculate poise, and undisputed iconic status across Sibu.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="auth-portal" class="py-28 px-6 bg-[var(--bg-secondary)] bg-opacity-20 border-y border-[var(--bg-secondary)]">
+        <div class="max-w-4xl mx-auto space-y-12 reveal-on-scroll">
+            <div class="text-center space-y-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Firebase Authentication</span>
+                <h2 class="text-5xl sm:text-7xl font-serif text-[var(--accent-deep)] dark:text-white">VISITOR PORTAL</h2>
+                <p class="text-sm tracking-wide text-[var(--text-main)] max-w-lg mx-auto">Sign in or create an account to access authenticated visitor logs and personalized tribute features.</p>
+                <div class="w-24 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Auth Card Container -->
+            <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-primary)] shadow-2xl border border-[var(--bg-secondary)] space-y-8">
+                
+                <!-- Status Area (Dynamically updated via onAuthStateChanged) -->
+                <div id="authStatusArea" class="p-4 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-30 border border-[var(--bg-secondary)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div id="authIndicatorDot" class="w-3 h-3 rounded-full bg-amber-500 animate-pulse"></div>
+                        <div>
+                            <p class="text-xs uppercase tracking-wider font-bold text-[var(--text-main)]">Authentication Status</p>
+                            <p id="authStatusText" class="text-sm font-serif font-semibold text-[var(--accent-deep)] dark:text-white">Checking login state...</p>
+                        </div>
+                    </div>
+                    <div id="signOutContainer" class="hidden">
+                        <button id="signOutBtn" class="px-5 py-2.5 rounded-full bg-red-600 text-white text-xs font-semibold tracking-wider uppercase hover:bg-red-700 transition-all shadow-sm cursor-pointer">
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error Message Banner (Plain language) -->
+                <div id="authErrorBanner" class="hidden p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
+                    <span class="font-bold">Notice:</span> <span id="authErrorText"></span>
+                </div>
+
+                <!-- Logged Out Forms & Google Auth View -->
+                <div id="loggedOutView" class="space-y-8">
+                    <!-- Google Sign-In Button -->
+                    <div class="text-center">
+                        <button id="googleSignInBtn" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] font-medium shadow-md transition-all cursor-pointer">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.19v3.15C3.17 21.36 7.22 24 12 24z"/>
+                                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.19C.43 8.1 0 9.8 0 12s.43 3.9 1.19 5.42l4.09-3.15z"/>
+                                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.64 1.19 6.58l4.09 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                            </svg>
+                            <span>Sign in with Google</span>
+                        </button>
+                    </div>
+
+                    <div class="relative flex py-2 items-center">
+                        <div class="flex-grow border-t border-[var(--bg-secondary)]"></div>
+                        <span class="flex-shrink mx-4 text-xs uppercase tracking-widest text-[var(--text-main)] font-bold">Or Email & Password</span>
+                        <div class="flex-grow border-t border-[var(--bg-secondary)]"></div>
+                    </div>
+
+                    <!-- Tabs for Sign In vs Sign Up -->
+                    <div class="flex justify-center border-b border-[var(--bg-secondary)] pb-4 space-x-8">
+                        <button id="tabSignIn" class="text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer">Sign In</button>
+                        <button id="tabSignUp" class="text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer">Create Account</button>
+                    </div>
+
+                    <!-- Email & Password Form -->
+                    <form id="emailAuthForm" class="space-y-6 max-w-xl mx-auto">
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="authEmail">Email Address</label>
+                            <input type="email" id="authEmail" required placeholder="name@example.com" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="authPassword">Password</label>
+                            <input type="password" id="authPassword" required placeholder="At least 6 characters" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" id="authSubmitBtn" class="w-full py-4 rounded-full bg-[var(--accent-deep)] text-white font-medium tracking-wide hover:bg-[var(--accent-primary)] transition-all shadow-lg hover:shadow-xl cursor-pointer">
+                                Sign In to Portal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Logged In Exclusive Content View -->
+                <div id="loggedInView" class="hidden space-y-6 text-center py-6">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-[var(--accent-primary)] text-white flex items-center justify-center text-2xl font-bold font-serif shadow-lg">
+                        ✓
+                    </div>
+                    <h3 class="text-3xl font-serif text-[var(--accent-deep)] dark:text-white">Welcome to the Inner Sanctuary</h3>
+                    <p class="text-base text-[var(--text-main)] font-light max-w-lg mx-auto">
+                        You are securely authenticated. Enjoy full access to Abunene's classified lore, secret audio frequencies, and tribute logs!
+                    </p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -462,7 +552,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <!-- Large Feature Image -->
                 <div class="md:col-span-8 cinematic-img-wrap rounded-3xl shadow-xl aspect-[16/10] cursor-pointer gallery-item reveal-on-scroll" data-src="photo_2026-08-16_20-37-02.jpg">
                     <img src="photo_2026-08-16_20-37-02.jpg" alt="Abunene Feature Portrait" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1000x625/274156/FBFCFF?text=Abunene+Gallery+1'">
                     <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
@@ -470,7 +559,6 @@
                     </div>
                 </div>
 
-                <!-- Secondary Image 1 -->
                 <div class="md:col-span-4 cinematic-img-wrap rounded-3xl shadow-xl aspect-[4/5] cursor-pointer gallery-item reveal-on-scroll" data-src="Screenshot 2026-03-08 192146.png">
                     <img src="Screenshot 2026-03-08 192146.png" alt="Abunene Glasses" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/500x625/1C6E8C/FBFCFF?text=Abunene+Gallery+2'">
                     <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
@@ -478,7 +566,6 @@
                     </div>
                 </div>
 
-                <!-- Secondary Image 2 -->
                 <div class="md:col-span-6 cinematic-img-wrap rounded-3xl shadow-xl aspect-[16/9] cursor-pointer gallery-item reveal-on-scroll" data-src="Screenshot 2026-03-08 192010.jpg">
                     <img src="Screenshot 2026-03-08 192010.jpg" alt="Abunene Wide" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x450/605856/FBFCFF?text=Abunene+Gallery+3'">
                     <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
@@ -486,7 +573,6 @@
                     </div>
                 </div>
 
-                <!-- Secondary Image 3 -->
                 <div class="md:col-span-6 cinematic-img-wrap rounded-3xl shadow-xl aspect-[16/9] cursor-pointer gallery-item reveal-on-scroll" data-src="Screenshot 2026-01-29 211514.png">
                     <img src="Screenshot 2026-01-29 211514.png" alt="Abunene Dining" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x450/274156/FBFCFF?text=Abunene+Gallery+4'">
                     <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
@@ -510,12 +596,22 @@
         </div>
     </section>
 
+    <!-- Lightbox Modal -->
     <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4">
         <button id="lightboxClose" class="absolute top-6 right-6 text-white text-3xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&times;</button>
         <button id="lightboxPrev" class="absolute left-6 text-white text-4xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&#10094;</button>
         <button id="lightboxNext" class="absolute right-6 text-white text-4xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&#10095;</button>
         <div class="max-w-5xl max-h-[85vh] overflow-hidden rounded-2xl">
             <img id="lightboxImg" src="" alt="Enlarged view" class="w-full h-auto max-h-[85vh] object-contain">
+        </div>
+    </div>
+
+    <!-- Custom Notification Toast for Easter Eggs (Replacing alert) -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-[var(--accent-deep)] text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-4 max-w-md">
+        <span class="text-2xl">❤️</span>
+        <div>
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--accent-primary)]">Secret Unlocked</p>
+            <p id="toastText" class="text-sm font-serif">Abunene & Jeriel forever in friendship lore!</p>
         </div>
     </div>
 
@@ -531,6 +627,184 @@
             </div>
         </div>
     </footer>
+
+    <script type="module">
+        /* 
+         * IMPORTANT NOTE: firebaseConfig must be filled in with your real Firebase project credentials before authentication will work.
+         * These configuration keys are safe to expose publicly in client-side code (they are not secret passwords), 
+         * but they must correspond to a valid Firebase project with Email/Password and Google Authentication enabled in the Firebase Console.
+         */
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            signInWithPopup, 
+            GoogleAuthProvider, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4reFYHN_atqTlmpgpfZvqOY2FNBBSywM",
+            authDomain: "abunene-cef9e.firebaseapp.com",
+            projectId: "abunene-cef9e",
+            storageBucket: "abunene-cef9e.firebasestorage.app",
+            messagingSenderId: "109414537840",
+            appId: "1:109414537840:web:9c463bd9ad240166faf2b5",
+            measurementId: "G-ZR47574HXQ"
+        };
+
+        // Initialize Firebase
+        let app = null;
+        let auth = null;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+        } catch (e) {
+            console.warn("Firebase not configured yet. Please update firebaseConfig.");
+        }
+
+        // DOM Elements for Auth
+        const authStatusDot = document.getElementById('authIndicatorDot');
+        const authStatusText = document.getElementById('authStatusText');
+        const signOutContainer = document.getElementById('signOutContainer');
+        const signOutBtn = document.getElementById('signOutBtn');
+        const loggedOutView = document.getElementById('loggedOutView');
+        const loggedInView = document.getElementById('loggedInView');
+        const emailAuthForm = document.getElementById('emailAuthForm');
+        const authEmailInput = document.getElementById('authEmail');
+        const authPasswordInput = document.getElementById('authPassword');
+        const authSubmitBtn = document.getElementById('authSubmitBtn');
+        const googleSignInBtn = document.getElementById('googleSignInBtn');
+        const tabSignIn = document.getElementById('tabSignIn');
+        const tabSignUp = document.getElementById('tabSignUp');
+        const authErrorBanner = document.getElementById('authErrorBanner');
+        const authErrorText = document.getElementById('authErrorText');
+
+        let isSignUpMode = false;
+
+        // Toggle between Sign In and Sign Up tabs
+        tabSignIn.addEventListener('click', () => {
+            isSignUpMode = false;
+            tabSignIn.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
+            tabSignUp.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
+            authSubmitBtn.textContent = "Sign In to Portal";
+            hideError();
+        });
+
+        tabSignUp.addEventListener('click', () => {
+            isSignUpMode = true;
+            tabSignUp.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
+            tabSignIn.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
+            authSubmitBtn.textContent = "Create Account";
+            hideError();
+        });
+
+        function showError(message) {
+            authErrorText.textContent = message;
+            authErrorBanner.classList.remove('hidden');
+        }
+
+        function hideError() {
+            authErrorBanner.classList.add('hidden');
+            authErrorText.textContent = "";
+        }
+
+        // Plain language error mapper
+        function getFriendlyErrorMessage(errorCode) {
+            switch (errorCode) {
+                case 'auth/invalid-email':
+                    return 'Please enter a valid email address format.';
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                case 'auth/invalid-credential':
+                    return 'Incorrect email or password. Please double-check your credentials.';
+                case 'auth/email-already-in-use':
+                    return 'This email is already registered. Please sign in instead.';
+                case 'auth/weak-password':
+                    return 'Password is too weak. Please use at least 6 characters.';
+                case 'auth/popup-closed-by-user':
+                    return 'Google sign-in popup was closed before completion.';
+                case 'auth/cancelled-popup-request':
+                    return 'Popup request was cancelled. Please try again.';
+                default:
+                    return 'Authentication failed. Please ensure your firebaseConfig is correctly filled in.';
+            }
+        }
+
+        // Auth State Observer
+        if (auth) {
+            onAuthStateChanged(auth, (user) => {
+                hideError();
+                if (user) {
+                    authStatusDot.className = "w-3 h-3 rounded-full bg-emerald-500 animate-none";
+                    authStatusText.textContent = `Logged in as: ${user.email}`;
+                    signOutContainer.classList.remove('hidden');
+                    loggedOutView.classList.add('hidden');
+                    loggedInView.classList.remove('hidden');
+                } else {
+                    authStatusDot.className = "w-3 h-3 rounded-full bg-amber-500 animate-pulse";
+                    authStatusText.textContent = "Not logged in (Guest Mode)";
+                    signOutContainer.classList.add('hidden');
+                    loggedOutView.classList.remove('hidden');
+                    loggedInView.classList.add('hidden');
+                }
+            });
+        } else {
+            authStatusText.textContent = "Firebase config required to activate auth.";
+        }
+
+        // Email / Password Form Submission
+        emailAuthForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!auth) {
+                showError("Firebase is not initialized. Please fill in your firebaseConfig keys.");
+                return;
+            }
+            hideError();
+            const email = authEmailInput.value.trim();
+            const password = authPasswordInput.value.trim();
+
+            try {
+                if (isSignUpMode) {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                } else {
+                    await signInWithEmailAndPassword(auth, email, password);
+                }
+                emailAuthForm.reset();
+            } catch (error) {
+                console.error("Auth error:", error);
+                showError(getFriendlyErrorMessage(error.code));
+            }
+        });
+
+        // Google Sign-In Button
+        googleSignInBtn.addEventListener('click', async () => {
+            if (!auth) {
+                showError("Firebase is not initialized. Please fill in your firebaseConfig keys.");
+                return;
+            }
+            hideError();
+            try {
+                const provider = new GoogleAuthProvider();
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Google auth error:", error);
+                showError(getFriendlyErrorMessage(error.code));
+            }
+        });
+
+        // Sign Out Button
+        signOutBtn.addEventListener('click', async () => {
+            if (!auth) return;
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Sign out error:", error);
+            }
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -563,7 +837,6 @@
                 });
             });
 
-            // Scroll Reveal Animation with Intersection Observer
             const revealElements = document.querySelectorAll('.reveal-on-scroll');
             const statBars = document.querySelectorAll('.stat-bar');
 
@@ -572,12 +845,11 @@
                 rootMargin: '0px 0px -50px 0px'
             };
 
-            const observer = new IntersectionObserver((entries, observerInstance) => {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('revealed');
                         
-                        // Trigger stat bars if inside personality section
                         if (entry.target.id === 'statsContainer' || entry.target.closest('#statsContainer')) {
                             statBars.forEach(bar => {
                                 const targetWidth = bar.getAttribute('data-width');
@@ -592,7 +864,6 @@
             const statsContainer = document.getElementById('statsContainer');
             if (statsContainer) observer.observe(statsContainer);
 
-            // Fun Facts Generator
             const facts = [
                 "He is Top 1 in his class, balancing elite academics with legendary coding mastery.",
                 "Renowned across SMK Sacred Heart for his cheerful and girlish charm.",
@@ -664,7 +935,6 @@
                 lightboxImg.src = gallerySources[currentImageIndex];
             });
 
-            // Keyboard navigation for lightbox
             document.addEventListener('keydown', (e) => {
                 if (lightbox.classList.contains('flex')) {
                     if (e.key === 'Escape') closeLightbox();
@@ -673,7 +943,6 @@
                 }
             });
 
-            // Web Audio API Ambient Music / Theme Sound Generator
             const musicToggle = document.getElementById('musicToggle');
             const musicText = document.getElementById('musicText');
             const musicIndicator = document.getElementById('musicIndicator');
@@ -690,8 +959,7 @@
                         musicIndicator.classList.remove('bg-white');
                         musicIndicator.classList.add('bg-green-400', 'animate-ping');
 
-                        // Play a pleasant ambient chord sequence programmatically
-                        const notes = [261.63, 329.63, 392.00, 523.25]; // C major chord
+                        const notes = [261.63, 329.63, 392.00, 523.25];
                         let noteIdx = 0;
 
                         audioInterval = setInterval(() => {
@@ -727,8 +995,6 @@
                 }
             });
 
-            // Easter Eggs
-            // 1. Monkey Mode Trigger
             const monkeyTriggerBtn = document.getElementById('monkeyTriggerBtn');
             let monkeyClickCount = 0;
 
@@ -748,11 +1014,15 @@
                 }
             });
 
-            // 2. Jeriel Easter Egg click
+            // Custom Notification Toast replacing alert()
+            const toastNotification = document.getElementById('toastNotification');
             const jerielEasterEgg = document.getElementById('jerielEasterEgg');
             if (jerielEasterEgg) {
                 jerielEasterEgg.addEventListener('click', () => {
-                    alert('❤️ Secret Unlocked: Abunene & Jeriel forever in friendship lore!');
+                    toastNotification.classList.remove('translate-y-32', 'opacity-0');
+                    setTimeout(() => {
+                        toastNotification.classList.add('translate-y-32', 'opacity-0');
+                    }, 4000);
                 });
             }
         });
