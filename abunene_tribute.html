@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -137,12 +137,16 @@
                 <a href="#personality" class="hover:text-[var(--accent-primary)] transition-colors">Personality</a>
                 <a href="#interests" class="hover:text-[var(--accent-primary)] transition-colors">Interests</a>
                 <a href="#achievements" class="hover:text-[var(--accent-primary)] transition-colors">Achievements</a>
-                <a href="#auth-portal" class="hover:text-[var(--accent-primary)] transition-colors font-semibold text-[var(--accent-primary)]">Portal</a>
                 <a href="#gallery" class="hover:text-[var(--accent-primary)] transition-colors">Gallery</a>
                 <a href="#quote" class="hover:text-[var(--accent-primary)] transition-colors">Legacy</a>
             </nav>
 
             <div class="flex items-center gap-3">
+                <!-- Dedicated Account Portal Button -->
+                <button id="openAuthModalBtn" class="px-4 py-2 rounded-full bg-[var(--accent-deep)] text-white text-xs font-semibold tracking-wider uppercase hover:bg-[var(--accent-primary)] transition-all shadow-md cursor-pointer flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span>Sign In / Register</span>
+                </button>
                 <!-- Theme toggle button -->
                 <button id="themeToggle" class="p-2 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-deep)] hover:scale-105 transition-transform cursor-pointer" aria-label="Toggle theme" title="Toggle Dark/Light Mode">
                     <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -169,7 +173,7 @@
             <a href="#personality" class="mobile-nav-link text-lg font-serif">Personality</a>
             <a href="#interests" class="mobile-nav-link text-lg font-serif">Interests</a>
             <a href="#achievements" class="mobile-nav-link text-lg font-serif">Achievements</a>
-            <a href="#auth-portal" class="mobile-nav-link text-lg font-serif text-[var(--accent-primary)]">Auth Portal</a>
+            <button id="mobileAuthBtn" class="text-left text-lg font-serif text-[var(--accent-primary)] font-bold">Sign In / Register</button>
             <a href="#gallery" class="mobile-nav-link text-lg font-serif">Gallery</a>
             <a href="#quote" class="mobile-nav-link text-lg font-serif">Legacy</a>
         </div>
@@ -199,6 +203,9 @@
                     <a href="#about" class="px-8 py-4 rounded-full bg-[var(--accent-deep)] text-white font-medium tracking-wide hover:bg-[var(--accent-primary)] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                         Discover the Legend
                     </a>
+                    <button id="heroAuthBtn" class="px-8 py-4 rounded-full bg-[var(--accent-primary)] text-white font-medium tracking-wide hover:opacity-90 transition-all shadow-lg hover:shadow-xl cursor-pointer">
+                        Create Account / Log In
+                    </button>
                     <button id="monkeyTriggerBtn" class="px-6 py-4 rounded-full border border-[var(--accent-primary)] text-[var(--accent-primary)] font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all cursor-pointer">
                         🐵 Secret Monkey Mode
                     </button>
@@ -606,6 +613,103 @@
         </div>
     </div>
 
+    <!-- Dedicated Full-Screen Auth Portal Modal -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="relative w-full max-w-2xl bg-[var(--bg-primary)] rounded-3xl shadow-2xl border border-[var(--bg-secondary)] p-8 sm:p-12 my-8 space-y-8">
+            <button id="authModalClose" class="absolute top-6 right-6 text-[var(--text-main)] hover:text-[var(--accent-primary)] text-3xl font-bold cursor-pointer">&times;</button>
+            
+            <div class="text-center space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent-primary)]">Firebase Authentication Portal</span>
+                <h2 class="text-4xl sm:text-5xl font-serif text-[var(--accent-deep)] dark:text-white">ACCOUNT ACCESS</h2>
+                <p class="text-sm text-[var(--text-main)]">Sign in to your account or create a new one to join the Abunene legacy registry.</p>
+            </div>
+
+            <!-- Status Area -->
+            <div id="modalAuthStatusArea" class="p-4 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-30 border border-[var(--bg-secondary)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div id="modalAuthIndicatorDot" class="w-3 h-3 rounded-full bg-amber-500 animate-pulse"></div>
+                    <div>
+                        <p class="text-xs uppercase tracking-wider font-bold text-[var(--text-main)]">Authentication Status</p>
+                        <p id="modalAuthStatusText" class="text-sm font-serif font-semibold text-[var(--accent-deep)] dark:text-white">Checking login state...</p>
+                    </div>
+                </div>
+                <div id="modalSignOutContainer" class="hidden">
+                    <button id="modalSignOutBtn" class="px-5 py-2.5 rounded-full bg-red-600 text-white text-xs font-semibold tracking-wider uppercase hover:bg-red-700 transition-all shadow-sm cursor-pointer">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="modalAuthErrorBanner" class="hidden p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
+                <span class="font-bold">Notice:</span> <span id="modalAuthErrorText"></span>
+            </div>
+
+            <!-- Logged Out View -->
+            <div id="modalLoggedOutView" class="space-y-6">
+                <!-- Google Sign-In -->
+                <div class="text-center">
+                    <button id="modalGoogleSignInBtn" class="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] font-medium shadow-md transition-all cursor-pointer">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.19v3.15C3.17 21.36 7.22 24 12 24z"/>
+                            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.19C.43 8.1 0 9.8 0 12s.43 3.9 1.19 5.42l4.09-3.15z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.64 1.19 6.58l4.09 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                        </svg>
+                        <span>Continue with Google</span>
+                    </button>
+                </div>
+
+                <div class="relative flex py-2 items-center">
+                    <div class="flex-grow border-t border-[var(--bg-secondary)]"></div>
+                    <span class="flex-shrink mx-4 text-xs uppercase tracking-widest text-[var(--text-main)] font-bold">Or Email & Password</span>
+                    <div class="flex-grow border-t border-[var(--bg-secondary)]"></div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex justify-center border-b border-[var(--bg-secondary)] pb-3 space-x-8">
+                    <button id="modalTabSignIn" class="text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer">Sign In</button>
+                    <button id="modalTabSignUp" class="text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer">Create Account</button>
+                </div>
+
+                <!-- Form -->
+                <form id="modalEmailAuthForm" class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="modalAuthEmail">Email Address</label>
+                        <input type="email" id="modalAuthEmail" required placeholder="name@example.com" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="modalAuthPassword">Password</label>
+                        <input type="password" id="modalAuthPassword" required placeholder="At least 6 characters" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" id="modalAuthSubmitBtn" class="w-full py-4 rounded-full bg-[var(--accent-deep)] text-white font-medium tracking-wide hover:bg-[var(--accent-primary)] transition-all shadow-lg hover:shadow-xl cursor-pointer">
+                            Sign In to Portal
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Logged In View -->
+            <div id="modalLoggedInView" class="hidden space-y-6 text-center py-6">
+                <div class="w-16 h-16 mx-auto rounded-full bg-[var(--accent-primary)] text-white flex items-center justify-center text-2xl font-bold font-serif shadow-lg">
+                    ✓
+                </div>
+                <h3 class="text-3xl font-serif text-[var(--accent-deep)] dark:text-white">Successfully Authenticated!</h3>
+                <p class="text-base text-[var(--text-main)] font-light max-w-md mx-auto">
+                    You have full access to authenticated visitor features and special tribute lore.
+                </p>
+                <div>
+                    <button id="modalCloseAfterLoginBtn" class="px-8 py-3.5 rounded-full bg-[var(--accent-deep)] text-white text-sm font-medium hover:bg-[var(--accent-primary)] transition-all cursor-pointer">
+                        Return to Site
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Custom Notification Toast for Easter Eggs (Replacing alert) -->
     <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-[var(--accent-deep)] text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-4 max-w-md">
         <span class="text-2xl">❤️</span>
@@ -682,7 +786,55 @@
         const authErrorBanner = document.getElementById('authErrorBanner');
         const authErrorText = document.getElementById('authErrorText');
 
+        // Modal Auth DOM Elements
+        const authModal = document.getElementById('authModal');
+        const openAuthModalBtn = document.getElementById('openAuthModalBtn');
+        const heroAuthBtn = document.getElementById('heroAuthBtn');
+        const mobileAuthBtn = document.getElementById('mobileAuthBtn');
+        const authModalClose = document.getElementById('authModalClose');
+        const modalAuthStatusDot = document.getElementById('modalAuthIndicatorDot');
+        const modalAuthStatusText = document.getElementById('modalAuthStatusText');
+        const modalSignOutContainer = document.getElementById('modalSignOutContainer');
+        const modalSignOutBtn = document.getElementById('modalSignOutBtn');
+        const modalLoggedOutView = document.getElementById('modalLoggedOutView');
+        const modalLoggedInView = document.getElementById('modalLoggedInView');
+        const modalEmailAuthForm = document.getElementById('modalEmailAuthForm');
+        const modalAuthEmail = document.getElementById('modalAuthEmail');
+        const modalAuthPassword = document.getElementById('modalAuthPassword');
+        const modalAuthSubmitBtn = document.getElementById('modalAuthSubmitBtn');
+        const modalGoogleSignInBtn = document.getElementById('modalGoogleSignInBtn');
+        const modalTabSignIn = document.getElementById('modalTabSignIn');
+        const modalTabSignUp = document.getElementById('modalTabSignUp');
+        const modalAuthErrorBanner = document.getElementById('modalAuthErrorBanner');
+        const modalAuthErrorText = document.getElementById('modalAuthErrorText');
+        const modalCloseAfterLoginBtn = document.getElementById('modalCloseAfterLoginBtn');
+
         let isSignUpMode = false;
+        let isModalSignUpMode = false;
+
+        // Modal Open / Close triggers
+        function openAuthModal() {
+            authModal.classList.remove('hidden');
+            authModal.classList.add('flex');
+        }
+        function closeAuthModal() {
+            authModal.classList.add('hidden');
+            authModal.classList.remove('flex');
+        }
+
+        if (openAuthModalBtn) openAuthModalBtn.addEventListener('click', openAuthModal);
+        if (heroAuthBtn) heroAuthBtn.addEventListener('click', openAuthModal);
+        if (mobileAuthBtn) {
+            mobileAuthBtn.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.add('hidden');
+                openAuthModal();
+            });
+        }
+        if (authModalClose) authModalClose.addEventListener('click', closeAuthModal);
+        if (modalCloseAfterLoginBtn) modalCloseAfterLoginBtn.addEventListener('click', closeAuthModal);
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) closeAuthModal();
+        });
 
         // Toggle between Sign In and Sign Up tabs
         tabSignIn.addEventListener('click', () => {
@@ -701,6 +853,23 @@
             hideError();
         });
 
+        // Modal Tabs
+        modalTabSignIn.addEventListener('click', () => {
+            isModalSignUpMode = false;
+            modalTabSignIn.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
+            modalTabSignUp.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
+            modalAuthSubmitBtn.textContent = "Sign In to Portal";
+            hideModalError();
+        });
+
+        modalTabSignUp.addEventListener('click', () => {
+            isModalSignUpMode = true;
+            modalTabSignUp.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
+            modalTabSignIn.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
+            modalAuthSubmitBtn.textContent = "Create Account";
+            hideModalError();
+        });
+
         function showError(message) {
             authErrorText.textContent = message;
             authErrorBanner.classList.remove('hidden');
@@ -709,6 +878,16 @@
         function hideError() {
             authErrorBanner.classList.add('hidden');
             authErrorText.textContent = "";
+        }
+
+        function showModalError(message) {
+            modalAuthErrorText.textContent = message;
+            modalAuthErrorBanner.classList.remove('hidden');
+        }
+
+        function hideModalError() {
+            modalAuthErrorBanner.classList.add('hidden');
+            modalAuthErrorText.textContent = "";
         }
 
         // Plain language error mapper
@@ -737,25 +916,43 @@
         if (auth) {
             onAuthStateChanged(auth, (user) => {
                 hideError();
+                hideModalError();
                 if (user) {
+                    // Page section status
                     authStatusDot.className = "w-3 h-3 rounded-full bg-emerald-500 animate-none";
                     authStatusText.textContent = `Logged in as: ${user.email}`;
                     signOutContainer.classList.remove('hidden');
                     loggedOutView.classList.add('hidden');
                     loggedInView.classList.remove('hidden');
+
+                    // Modal status
+                    modalAuthStatusDot.className = "w-3 h-3 rounded-full bg-emerald-500 animate-none";
+                    modalAuthStatusText.textContent = `Logged in as: ${user.email}`;
+                    modalSignOutContainer.classList.remove('hidden');
+                    modalLoggedOutView.classList.add('hidden');
+                    modalLoggedInView.classList.remove('hidden');
                 } else {
+                    // Page section status
                     authStatusDot.className = "w-3 h-3 rounded-full bg-amber-500 animate-pulse";
                     authStatusText.textContent = "Not logged in (Guest Mode)";
                     signOutContainer.classList.add('hidden');
                     loggedOutView.classList.remove('hidden');
                     loggedInView.classList.add('hidden');
+
+                    // Modal status
+                    modalAuthStatusDot.className = "w-3 h-3 rounded-full bg-amber-500 animate-pulse";
+                    modalAuthStatusText.textContent = "Not logged in (Guest Mode)";
+                    modalSignOutContainer.classList.add('hidden');
+                    modalLoggedOutView.classList.remove('hidden');
+                    modalLoggedInView.classList.add('hidden');
                 }
             });
         } else {
             authStatusText.textContent = "Firebase config required to activate auth.";
+            modalAuthStatusText.textContent = "Firebase config required to activate auth.";
         }
 
-        // Email / Password Form Submission
+        // Email / Password Form Submission (Page Section)
         emailAuthForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!auth) {
@@ -779,7 +976,31 @@
             }
         });
 
-        // Google Sign-In Button
+        // Email / Password Form Submission (Modal)
+        modalEmailAuthForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!auth) {
+                showModalError("Firebase is not initialized. Please fill in your firebaseConfig keys.");
+                return;
+            }
+            hideModalError();
+            const email = modalAuthEmail.value.trim();
+            const password = modalAuthPassword.value.trim();
+
+            try {
+                if (isModalSignUpMode) {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                } else {
+                    await signInWithEmailAndPassword(auth, email, password);
+                }
+                modalEmailAuthForm.reset();
+            } catch (error) {
+                console.error("Modal auth error:", error);
+                showModalError(getFriendlyErrorMessage(error.code));
+            }
+        });
+
+        // Google Sign-In Button (Page Section)
         googleSignInBtn.addEventListener('click', async () => {
             if (!auth) {
                 showError("Firebase is not initialized. Please fill in your firebaseConfig keys.");
@@ -795,8 +1016,33 @@
             }
         });
 
-        // Sign Out Button
+        // Google Sign-In Button (Modal)
+        modalGoogleSignInBtn.addEventListener('click', async () => {
+            if (!auth) {
+                showModalError("Firebase is not initialized. Please fill in your firebaseConfig keys.");
+                return;
+            }
+            hideModalError();
+            try {
+                const provider = new GoogleAuthProvider();
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Google modal auth error:", error);
+                showModalError(getFriendlyErrorMessage(error.code));
+            }
+        });
+
+        // Sign Out Buttons
         signOutBtn.addEventListener('click', async () => {
+            if (!auth) return;
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Sign out error:", error);
+            }
+        });
+
+        modalSignOutBtn.addEventListener('click', async () => {
             if (!auth) return;
             try {
                 await signOut(auth);
