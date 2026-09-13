@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abunene Ting Lik Yue — A Cinematic Tribute</title>
-    <!-- Google Fonts for Editorial Aesthetics -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN for utility structure -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -62,7 +60,6 @@
             font-family: 'Instrument Serif', serif;
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -74,7 +71,6 @@
             border-radius: 4px;
         }
 
-        /* Cinematic image overlays */
         .cinematic-img-wrap {
             position: relative;
             overflow: hidden;
@@ -89,7 +85,6 @@
             filter: brightness(1.02) contrast(1.08);
         }
 
-        /* Glassmorphism nav */
         .glass-nav {
             background: rgba(251, 252, 255, 0.82);
             backdrop-filter: blur(16px);
@@ -102,7 +97,6 @@
             border-bottom: 1px solid rgba(30, 37, 48, 0.5);
         }
 
-        /* Smooth reveal animations */
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(30px);
@@ -113,7 +107,6 @@
             transform: translateY(0);
         }
 
-        /* Monkey mode overlay style */
         .monkey-mode-active {
             animation: jungleShake 0.4s infinite alternate;
         }
@@ -142,23 +135,19 @@
             </nav>
 
             <div class="flex items-center gap-3">
-                <!-- Dedicated Account Portal Button -->
                 <button id="openAuthModalBtn" class="px-4 py-2 rounded-full bg-[var(--accent-deep)] text-white text-xs font-semibold tracking-wider uppercase hover:bg-[var(--accent-primary)] transition-all shadow-md cursor-pointer flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     <span>Sign In / Register</span>
                 </button>
-                <!-- Theme toggle button -->
                 <button id="themeToggle" class="p-2 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-deep)] hover:scale-105 transition-transform cursor-pointer" aria-label="Toggle theme" title="Toggle Dark/Light Mode">
                     <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                     </svg>
                 </button>
-                <!-- Ambient Music Button -->
                 <button id="musicToggle" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--accent-primary)] text-white text-xs font-semibold tracking-wider uppercase hover:opacity-90 transition-all shadow-sm cursor-pointer">
                     <span id="musicIndicator" class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
                     <span id="musicText">Theme Sound</span>
                 </button>
-                <!-- Mobile menu button -->
                 <button id="mobileMenuBtn" class="md:hidden p-2 text-[var(--accent-deep)]">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -167,7 +156,6 @@
             </div>
         </div>
 
-        <!-- Mobile dropdown menu -->
         <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 glass-nav px-6 py-6 border-b border-[var(--bg-secondary)] flex flex-col space-y-4">
             <a href="#about" class="mobile-nav-link text-lg font-serif">About</a>
             <a href="#personality" class="mobile-nav-link text-lg font-serif">Personality</a>
@@ -429,7 +417,6 @@
             <!-- Auth Card Container -->
             <div class="p-8 sm:p-12 rounded-3xl bg-[var(--bg-primary)] shadow-2xl border border-[var(--bg-secondary)] space-y-8">
                 
-                <!-- Status Area (Dynamically updated via onAuthStateChanged) -->
                 <div id="authStatusArea" class="p-4 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-30 border border-[var(--bg-secondary)] flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-3">
                         <div id="authIndicatorDot" class="w-3 h-3 rounded-full bg-amber-500 animate-pulse"></div>
@@ -445,14 +432,11 @@
                     </div>
                 </div>
 
-                <!-- Error Message Banner (Plain language) -->
                 <div id="authErrorBanner" class="hidden p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
                     <span class="font-bold">Notice:</span> <span id="authErrorText"></span>
                 </div>
 
-                <!-- Logged Out Forms & Google Auth View -->
                 <div id="loggedOutView" class="space-y-8">
-                    <!-- Google Sign-In Button -->
                     <div class="text-center">
                         <button id="googleSignInBtn" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] font-medium shadow-md transition-all cursor-pointer">
                             <svg class="w-5 h-5" viewBox="0 0 24 24">
@@ -471,13 +455,12 @@
                         <div class="flex-grow border-t border-[var(--bg-secondary)]"></div>
                     </div>
 
-                    <!-- Tabs for Sign In vs Sign Up -->
                     <div class="flex justify-center border-b border-[var(--bg-secondary)] pb-4 space-x-8">
                         <button id="tabSignIn" class="text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer">Sign In</button>
                         <button id="tabSignUp" class="text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer">Create Account</button>
                     </div>
 
-                    <!-- Email & Password Form -->
+                    <!-- Email & Password Form with Age, Gender, Nation -->
                     <form id="emailAuthForm" class="space-y-6 max-w-xl mx-auto">
                         <div class="space-y-2">
                             <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="authEmail">Email Address</label>
@@ -489,6 +472,34 @@
                             <input type="password" id="authPassword" required placeholder="At least 6 characters" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
                         </div>
 
+                        <!-- Extra Profile Details (Age, Gender, Nation) -->
+                        <div id="signUpExtraFields" class="space-y-6 pt-2 border-t border-[var(--bg-secondary)]">
+                            <p class="text-xs uppercase tracking-widest text-[var(--accent-primary)] font-bold">Additional Profile Details</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="authAge">Age</label>
+                                    <input type="number" id="authAge" min="1" max="120" placeholder="e.g. 17" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="authGender">Gender</label>
+                                    <select id="authGender" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors text-[var(--text-main)]">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                        <option value="Prefer not to say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="authNation">Nation / Country</label>
+                                <input type="text" id="authNation" placeholder="e.g. Malaysia" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                            </div>
+                        </div>
+
                         <div class="pt-2">
                             <button type="submit" id="authSubmitBtn" class="w-full py-4 rounded-full bg-[var(--accent-deep)] text-white font-medium tracking-wide hover:bg-[var(--accent-primary)] transition-all shadow-lg hover:shadow-xl cursor-pointer">
                                 Sign In to Portal
@@ -497,7 +508,6 @@
                     </form>
                 </div>
 
-                <!-- Logged In Exclusive Content View -->
                 <div id="loggedInView" class="hidden space-y-6 text-center py-6">
                     <div class="w-16 h-16 mx-auto rounded-full bg-[var(--accent-primary)] text-white flex items-center justify-center text-2xl font-bold font-serif shadow-lg">
                         ✓
@@ -603,7 +613,6 @@
         </div>
     </section>
 
-    <!-- Lightbox Modal -->
     <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4">
         <button id="lightboxClose" class="absolute top-6 right-6 text-white text-3xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&times;</button>
         <button id="lightboxPrev" class="absolute left-6 text-white text-4xl font-bold hover:text-[var(--accent-primary)] cursor-pointer">&#10094;</button>
@@ -613,7 +622,6 @@
         </div>
     </div>
 
-    <!-- Dedicated Full-Screen Auth Portal Modal -->
     <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
         <div class="relative w-full max-w-2xl bg-[var(--bg-primary)] rounded-3xl shadow-2xl border border-[var(--bg-secondary)] p-8 sm:p-12 my-8 space-y-8">
             <button id="authModalClose" class="absolute top-6 right-6 text-[var(--text-main)] hover:text-[var(--accent-primary)] text-3xl font-bold cursor-pointer">&times;</button>
@@ -624,7 +632,6 @@
                 <p class="text-sm text-[var(--text-main)]">Sign in to your account or create a new one to join the Abunene legacy registry.</p>
             </div>
 
-            <!-- Status Area -->
             <div id="modalAuthStatusArea" class="p-4 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-30 border border-[var(--bg-secondary)] flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
                     <div id="modalAuthIndicatorDot" class="w-3 h-3 rounded-full bg-amber-500 animate-pulse"></div>
@@ -640,14 +647,11 @@
                 </div>
             </div>
 
-            <!-- Error Banner -->
             <div id="modalAuthErrorBanner" class="hidden p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
                 <span class="font-bold">Notice:</span> <span id="modalAuthErrorText"></span>
             </div>
 
-            <!-- Logged Out View -->
             <div id="modalLoggedOutView" class="space-y-6">
-                <!-- Google Sign-In -->
                 <div class="text-center">
                     <button id="modalGoogleSignInBtn" class="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-[var(--bg-secondary)] hover:border-[var(--accent-primary)] font-medium shadow-md transition-all cursor-pointer">
                         <svg class="w-5 h-5" viewBox="0 0 24 24">
@@ -666,13 +670,12 @@
                     <div class="flex-grow border-t border-[var(--bg-secondary)]"></div>
                 </div>
 
-                <!-- Tabs -->
                 <div class="flex justify-center border-b border-[var(--bg-secondary)] pb-3 space-x-8">
                     <button id="modalTabSignIn" class="text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer">Sign In</button>
                     <button id="modalTabSignUp" class="text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer">Create Account</button>
                 </div>
 
-                <!-- Form -->
+                <!-- Modal Form with Age, Gender, Nation -->
                 <form id="modalEmailAuthForm" class="space-y-5">
                     <div class="space-y-2">
                         <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="modalAuthEmail">Email Address</label>
@@ -684,6 +687,34 @@
                         <input type="password" id="modalAuthPassword" required placeholder="At least 6 characters" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
                     </div>
 
+                    <!-- Modal Extra Profile Details (Age, Gender, Nation) -->
+                    <div id="modalSignUpExtraFields" class="space-y-4 pt-2 border-t border-[var(--bg-secondary)]">
+                        <p class="text-xs uppercase tracking-widest text-[var(--accent-primary)] font-bold">Additional Profile Details</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="modalAuthAge">Age</label>
+                                <input type="number" id="modalAuthAge" min="1" max="120" placeholder="e.g. 17" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="modalAuthGender">Gender</label>
+                                <select id="modalAuthGender" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors text-[var(--text-main)]">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                    <option value="Prefer not to say">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-wider font-bold text-[var(--accent-deep)] dark:text-white" for="modalAuthNation">Nation / Country</label>
+                            <input type="text" id="modalAuthNation" placeholder="e.g. Malaysia" class="w-full px-5 py-3.5 rounded-2xl bg-[var(--bg-secondary)] bg-opacity-20 border border-[var(--bg-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors">
+                        </div>
+                    </div>
+
                     <div class="pt-2">
                         <button type="submit" id="modalAuthSubmitBtn" class="w-full py-4 rounded-full bg-[var(--accent-deep)] text-white font-medium tracking-wide hover:bg-[var(--accent-primary)] transition-all shadow-lg hover:shadow-xl cursor-pointer">
                             Sign In to Portal
@@ -692,7 +723,6 @@
                 </form>
             </div>
 
-            <!-- Logged In View -->
             <div id="modalLoggedInView" class="hidden space-y-6 text-center py-6">
                 <div class="w-16 h-16 mx-auto rounded-full bg-[var(--accent-primary)] text-white flex items-center justify-center text-2xl font-bold font-serif shadow-lg">
                     ✓
@@ -710,7 +740,6 @@
         </div>
     </div>
 
-    <!-- Custom Notification Toast for Easter Eggs (Replacing alert) -->
     <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-[var(--accent-deep)] text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-4 max-w-md">
         <span class="text-2xl">❤️</span>
         <div>
@@ -733,11 +762,6 @@
     </footer>
 
     <script type="module">
-        /* 
-         * IMPORTANT NOTE: firebaseConfig must be filled in with your real Firebase project credentials before authentication will work.
-         * These configuration keys are safe to expose publicly in client-side code (they are not secret passwords), 
-         * but they must correspond to a valid Firebase project with Email/Password and Google Authentication enabled in the Firebase Console.
-         */
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
             getAuth, 
@@ -759,7 +783,6 @@
             measurementId: "G-ZR47574HXQ"
         };
 
-        // Initialize Firebase
         let app = null;
         let auth = null;
         try {
@@ -769,7 +792,6 @@
             console.warn("Firebase not configured yet. Please update firebaseConfig.");
         }
 
-        // DOM Elements for Auth
         const authStatusDot = document.getElementById('authIndicatorDot');
         const authStatusText = document.getElementById('authStatusText');
         const signOutContainer = document.getElementById('signOutContainer');
@@ -779,6 +801,10 @@
         const emailAuthForm = document.getElementById('emailAuthForm');
         const authEmailInput = document.getElementById('authEmail');
         const authPasswordInput = document.getElementById('authPassword');
+        const authAgeInput = document.getElementById('authAge');
+        const authGenderSelect = document.getElementById('authGender');
+        const authNationInput = document.getElementById('authNation');
+        const signUpExtraFields = document.getElementById('signUpExtraFields');
         const authSubmitBtn = document.getElementById('authSubmitBtn');
         const googleSignInBtn = document.getElementById('googleSignInBtn');
         const tabSignIn = document.getElementById('tabSignIn');
@@ -786,7 +812,6 @@
         const authErrorBanner = document.getElementById('authErrorBanner');
         const authErrorText = document.getElementById('authErrorText');
 
-        // Modal Auth DOM Elements
         const authModal = document.getElementById('authModal');
         const openAuthModalBtn = document.getElementById('openAuthModalBtn');
         const heroAuthBtn = document.getElementById('heroAuthBtn');
@@ -801,6 +826,10 @@
         const modalEmailAuthForm = document.getElementById('modalEmailAuthForm');
         const modalAuthEmail = document.getElementById('modalAuthEmail');
         const modalAuthPassword = document.getElementById('modalAuthPassword');
+        const modalAuthAge = document.getElementById('modalAuthAge');
+        const modalAuthGender = document.getElementById('modalAuthGender');
+        const modalAuthNation = document.getElementById('modalAuthNation');
+        const modalSignUpExtraFields = document.getElementById('modalSignUpExtraFields');
         const modalAuthSubmitBtn = document.getElementById('modalAuthSubmitBtn');
         const modalGoogleSignInBtn = document.getElementById('modalGoogleSignInBtn');
         const modalTabSignIn = document.getElementById('modalTabSignIn');
@@ -812,7 +841,38 @@
         let isSignUpMode = false;
         let isModalSignUpMode = false;
 
-        // Modal Open / Close triggers
+        // Initially hide extra fields on sign-in mode, or show them when creating account
+        function updateExtraFieldsVisibility() {
+            if (isSignUpMode) {
+                signUpExtraFields.classList.remove('hidden');
+                authAgeInput.setAttribute('required', 'true');
+                authGenderSelect.setAttribute('required', 'true');
+                authNationInput.setAttribute('required', 'true');
+            } else {
+                signUpExtraFields.classList.add('hidden');
+                authAgeInput.removeAttribute('required');
+                authGenderSelect.removeAttribute('required');
+                authNationInput.removeAttribute('required');
+            }
+        }
+
+        function updateModalExtraFieldsVisibility() {
+            if (isModalSignUpMode) {
+                modalSignUpExtraFields.classList.remove('hidden');
+                modalAuthAge.setAttribute('required', 'true');
+                modalAuthGender.setAttribute('required', 'true');
+                modalAuthNation.setAttribute('required', 'true');
+            } else {
+                modalSignUpExtraFields.classList.add('hidden');
+                modalAuthAge.removeAttribute('required');
+                modalAuthGender.removeAttribute('required');
+                modalAuthNation.removeAttribute('required');
+            }
+        }
+
+        updateExtraFieldsVisibility();
+        updateModalExtraFieldsVisibility();
+
         function openAuthModal() {
             authModal.classList.remove('hidden');
             authModal.classList.add('flex');
@@ -836,9 +896,9 @@
             if (e.target === authModal) closeAuthModal();
         });
 
-        // Toggle between Sign In and Sign Up tabs
         tabSignIn.addEventListener('click', () => {
             isSignUpMode = false;
+            updateExtraFieldsVisibility();
             tabSignIn.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
             tabSignUp.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
             authSubmitBtn.textContent = "Sign In to Portal";
@@ -847,15 +907,16 @@
 
         tabSignUp.addEventListener('click', () => {
             isSignUpMode = true;
+            updateExtraFieldsVisibility();
             tabSignUp.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
             tabSignIn.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
             authSubmitBtn.textContent = "Create Account";
             hideError();
         });
 
-        // Modal Tabs
         modalTabSignIn.addEventListener('click', () => {
             isModalSignUpMode = false;
+            updateModalExtraFieldsVisibility();
             modalTabSignIn.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
             modalTabSignUp.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
             modalAuthSubmitBtn.textContent = "Sign In to Portal";
@@ -864,6 +925,7 @@
 
         modalTabSignUp.addEventListener('click', () => {
             isModalSignUpMode = true;
+            updateModalExtraFieldsVisibility();
             modalTabSignUp.className = "text-lg font-serif font-bold text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] pb-2 cursor-pointer";
             modalTabSignIn.className = "text-lg font-serif font-medium text-[var(--text-main)] hover:text-[var(--accent-primary)] pb-2 cursor-pointer";
             modalAuthSubmitBtn.textContent = "Create Account";
@@ -890,7 +952,6 @@
             modalAuthErrorText.textContent = "";
         }
 
-        // Plain language error mapper
         function getFriendlyErrorMessage(errorCode) {
             switch (errorCode) {
                 case 'auth/invalid-email':
@@ -912,34 +973,29 @@
             }
         }
 
-        // Auth State Observer
         if (auth) {
             onAuthStateChanged(auth, (user) => {
                 hideError();
                 hideModalError();
                 if (user) {
-                    // Page section status
                     authStatusDot.className = "w-3 h-3 rounded-full bg-emerald-500 animate-none";
                     authStatusText.textContent = `Logged in as: ${user.email}`;
                     signOutContainer.classList.remove('hidden');
                     loggedOutView.classList.add('hidden');
                     loggedInView.classList.remove('hidden');
 
-                    // Modal status
                     modalAuthStatusDot.className = "w-3 h-3 rounded-full bg-emerald-500 animate-none";
                     modalAuthStatusText.textContent = `Logged in as: ${user.email}`;
                     modalSignOutContainer.classList.remove('hidden');
                     modalLoggedOutView.classList.add('hidden');
                     modalLoggedInView.classList.remove('hidden');
                 } else {
-                    // Page section status
                     authStatusDot.className = "w-3 h-3 rounded-full bg-amber-500 animate-pulse";
                     authStatusText.textContent = "Not logged in (Guest Mode)";
                     signOutContainer.classList.add('hidden');
                     loggedOutView.classList.remove('hidden');
                     loggedInView.classList.add('hidden');
 
-                    // Modal status
                     modalAuthStatusDot.className = "w-3 h-3 rounded-full bg-amber-500 animate-pulse";
                     modalAuthStatusText.textContent = "Not logged in (Guest Mode)";
                     modalSignOutContainer.classList.add('hidden');
@@ -952,7 +1008,6 @@
             modalAuthStatusText.textContent = "Firebase config required to activate auth.";
         }
 
-        // Email / Password Form Submission (Page Section)
         emailAuthForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!auth) {
@@ -962,21 +1017,25 @@
             hideError();
             const email = authEmailInput.value.trim();
             const password = authPasswordInput.value.trim();
+            const age = authAgeInput.value;
+            const gender = authGenderSelect.value;
+            const nation = authNationInput.value.trim();
 
             try {
                 if (isSignUpMode) {
                     await createUserWithEmailAndPassword(auth, email, password);
+                    console.log("Registered user profile - Age:", age, "Gender:", gender, "Nation:", nation);
                 } else {
                     await signInWithEmailAndPassword(auth, email, password);
                 }
                 emailAuthForm.reset();
+                updateExtraFieldsVisibility();
             } catch (error) {
                 console.error("Auth error:", error);
                 showError(getFriendlyErrorMessage(error.code));
             }
         });
 
-        // Email / Password Form Submission (Modal)
         modalEmailAuthForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!auth) {
@@ -986,21 +1045,25 @@
             hideModalError();
             const email = modalAuthEmail.value.trim();
             const password = modalAuthPassword.value.trim();
+            const age = modalAuthAge.value;
+            const gender = modalAuthGender.value;
+            const nation = modalAuthNation.value.trim();
 
             try {
                 if (isModalSignUpMode) {
                     await createUserWithEmailAndPassword(auth, email, password);
+                    console.log("Registered modal user profile - Age:", age, "Gender:", gender, "Nation:", nation);
                 } else {
                     await signInWithEmailAndPassword(auth, email, password);
                 }
                 modalEmailAuthForm.reset();
+                updateModalExtraFieldsVisibility();
             } catch (error) {
                 console.error("Modal auth error:", error);
                 showModalError(getFriendlyErrorMessage(error.code));
             }
         });
 
-        // Google Sign-In Button (Page Section)
         googleSignInBtn.addEventListener('click', async () => {
             if (!auth) {
                 showError("Firebase is not initialized. Please fill in your firebaseConfig keys.");
@@ -1016,7 +1079,6 @@
             }
         });
 
-        // Google Sign-In Button (Modal)
         modalGoogleSignInBtn.addEventListener('click', async () => {
             if (!auth) {
                 showModalError("Firebase is not initialized. Please fill in your firebaseConfig keys.");
@@ -1032,7 +1094,6 @@
             }
         });
 
-        // Sign Out Buttons
         signOutBtn.addEventListener('click', async () => {
             if (!auth) return;
             try {
@@ -1054,7 +1115,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Theme Toggle Logic
             const themeToggle = document.getElementById('themeToggle');
             const htmlElement = document.documentElement;
             
@@ -1068,7 +1128,6 @@
                 localStorage.setItem('abunene_theme', newTheme);
             });
 
-            // Mobile Menu Toggle
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
@@ -1135,7 +1194,6 @@
             });
             factDisplay.style.transition = 'opacity 0.3s ease';
 
-            // Lightbox Modal
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const lightboxClose = document.getElementById('lightboxClose');
@@ -1260,7 +1318,6 @@
                 }
             });
 
-            // Custom Notification Toast replacing alert()
             const toastNotification = document.getElementById('toastNotification');
             const jerielEasterEgg = document.getElementById('jerielEasterEgg');
             if (jerielEasterEgg) {
